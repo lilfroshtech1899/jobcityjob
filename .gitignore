@@ -17,6 +17,9 @@ Thumbs.db
 # Supabase CLI temp / generated files
 supabase/.temp/
 
+# Vercel build output — generated locally by scripts/vercel-build.js
+public/
+
 # NOTE: js/env-config.js is intentionally committed as a placeholder template.
 # The build script (scripts/gen-env-config.js) overwrites it with real
 # values from environment variables at deploy time, so do NOT ignore it here.
