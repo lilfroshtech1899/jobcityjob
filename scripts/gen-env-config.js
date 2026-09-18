@@ -22,7 +22,7 @@
  *
  * Usage:  node scripts/gen-env-config.js
  * ============================================================ */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -135,17 +135,24 @@ if (!window.PaystackPop || typeof window.PaystackPop.setup !== "function") {
 }
 
 mkdirSync(dirname(outFile), { recursive: true });
-writeFileSync(outFile, template(url, anon, pk), "utf8");
+const hasExisting = existsSync(outFile);
 
-if (configured && pkConfigured) {
-  console.log("[jobcityjob] env-config written from environment variables (Supabase + Paystack configured).");
-} else if (configured && !pkConfigured) {
-  console.log("[jobcityjob] env-config written — Supabase configured, but PAYSTACK_PUBLIC_KEY is missing/placeholder.");
-} else if (!configured && pkConfigured) {
-  console.warn("[jobcityjob] env-config written — Paystack configured, but SUPABASE_URL / SUPABASE_ANON_KEY are missing/placeholder.");
+if (configured) {
+  writeFileSync(outFile, template(url, anon, pk), "utf8");
+  if (pkConfigured) {
+    console.log("[jobcityjob] env-config written from environment variables (Supabase + Paystack configured).");
+  } else {
+    console.warn("[jobcityjob] env-config written — Supabase configured, but PAYSTACK_PUBLIC_KEY is missing/placeholder.");
+  }
+  if (pkPlaceholder) {
+    console.warn("[jobcityjob] NOTE: a placeholder PAYSTACK_PUBLIC_KEY was written — openPaystack will show the 'Paystack is not configured yet' toast until a real pk_live_/pk_test_ key is provided.");
+  }
+} else if (hasExisting) {
+  console.warn("[jobcityjob] SUPABASE_URL / SUPABASE_ANON_KEY not set in the build env — keeping the real values already in js/env-config.js instead of overwriting them with placeholders. To rotate keys without a code commit, set them in Vercel -> Project -> Settings -> Environment Variables and redeploy.");
 } else {
+  writeFileSync(outFile, template(url, anon, pk), "utf8");
   console.warn("[jobcityjob] env-config written with empty/placeholder values — set SUPABASE_URL, SUPABASE_ANON_KEY, PAYSTACK_PUBLIC_KEY and re-run.");
-}
-if (pkPlaceholder) {
-  console.warn("[jobcityjob] NOTE: a placeholder PAYSTACK_PUBLIC_KEY was written — openPaystack will show the 'Paystack is not configured yet' toast until a real pk_live_/pk_test_ key is provided.");
+  if (pkPlaceholder) {
+    console.warn("[jobcityjob] NOTE: a placeholder PAYSTACK_PUBLIC_KEY was written — openPaystack will show the 'Paystack is not configured yet' toast until a real pk_live_/pk_test_ key is provided.");
+  }
 }
