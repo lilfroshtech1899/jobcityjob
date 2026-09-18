@@ -1,0 +1,10 @@
+# Jobcityjob – allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location (update domain after you deploy)
+Sitemap: https://jobcityjob.app/sitemap.xml
+
+# Disallow admin-only paths if you later add real routes
+# User-agent: *
+# Disallow: /admin

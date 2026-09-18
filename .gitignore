@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Environment files (real secrets — never commit)
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Supabase CLI temp / generated files
+supabase/.temp/
+
+# NOTE: js/env-config.js is intentionally committed as a placeholder template.
+# The build script (scripts/gen-env-config.js) overwrites it with real
+# values from environment variables at deploy time, so do NOT ignore it here.

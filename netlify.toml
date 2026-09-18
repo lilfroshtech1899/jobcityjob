@@ -1,0 +1,18 @@
+[build]
+  command = "node scripts/gen-env-config.js"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# SPA fallback — serve index.html for client-side routes (e.g. /desk).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/js/env-config.js"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"

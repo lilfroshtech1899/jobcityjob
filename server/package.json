@@ -1,0 +1,15 @@
+{
+  "name": "jobcityjob-server",
+  "private": true,
+  "description": "Optional FX cron and email webhook helpers for Jobcityjob",
+  "type": "module",
+  "scripts": {
+    "fx": "node fx-cron.js",
+    "fx:serve": "node fx-cron.js --serve --loop 12",
+    "webhooks": "node email-webhooks.js",
+    "payments": "node payments/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

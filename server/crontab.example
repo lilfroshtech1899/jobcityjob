@@ -1,0 +1,6 @@
+# Jobcityjob FX – place in crontab -e (server timezone)
+# Refresh exchange rates every 12 hours
+0 */12 * * * cd /var/www/jobcityjob/server && /usr/bin/node fx-cron.js >> /var/log/jobcityjob-fx.log 2>&1
+
+# Optional: daily at 06:00 only
+# 0 6 * * * cd /var/www/jobcityjob/server && /usr/bin/node fx-cron.js >> /var/log/jobcityjob-fx.log 2>&1

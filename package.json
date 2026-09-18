@@ -1,0 +1,10 @@
+{
+  "name": "jobcityjob",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Jobcityjob — global job placement. Static SPA + Supabase + Paystack.",
+  "scripts": {
+    "build": "node scripts/gen-env-config.js"
+  }
+}

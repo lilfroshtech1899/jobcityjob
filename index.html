@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Primary SEO -->
+  <title>Jobcityjob – International Job Matching Platform | Find Jobs & Hire Talent Worldwide</title>
+  <meta name="description" content="Jobcityjob is the free international job matching platform. Job seekers register free with verified profiles. Employers search talent by skills, experience, location and unlock contacts after payment. 95+ countries." />
+  <meta name="keywords" content="jobcityjob, jobs, job search, find job, hire talent, international jobs, overseas jobs, employment, job matching, recruit, career, work abroad, verified workers, job board, global jobs, remote jobs" />
+  <meta name="author" content="Jobcityjob" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow" />
+  <link rel="canonical" href="https://jobcityjob.app/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jobcityjob.app/" />
+  <meta property="og:title" content="Jobcityjob – Find Jobs & Hire Talent Worldwide" />
+  <meta property="og:description" content="Free registration for job seekers. Employers search verified talent globally and unlock contacts after payment. Multi-language, multi-currency." />
+  <meta property="og:site_name" content="Jobcityjob" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://jobcityjob.app/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Jobcityjob – International Job Matching Platform" />
+  <meta name="twitter:description" content="Register free as a job seeker or hire verified talent worldwide. Smart search, secure unlock, multi-language support." />
+  <meta name="twitter:image" content="https://jobcityjob.app/assets/og-image.png" />
+
+  <!-- Theme & Mobile -->
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Jobcityjob" />
+  <meta name="application-name" content="Jobcityjob" />
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>" />
+
+  <!-- Structured Data: Organization + WebSite (helps Google show sitelinks & knowledge) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://jobcityjob.app/#organization",
+        "name": "Jobcityjob",
+        "url": "https://jobcityjob.app/",
+        "logo": "https://jobcityjob.app/assets/logo.png",
+        "description": "International job matching platform connecting verified job seekers with employers worldwide.",
+        "sameAs": []
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://jobcityjob.app/#website",
+        "url": "https://jobcityjob.app/",
+        "name": "Jobcityjob",
+        "description": "Find jobs and hire talent worldwide. Free for job seekers.",
+        "publisher": { "@id": "https://jobcityjob.app/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://jobcityjob.app/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        },
+        "inLanguage": ["en", "es", "fr", "de", "pt", "ar", "zh", "hi", "ja"]
+      },
+      {
+        "@type": "WebApplication",
+        "name": "Jobcityjob",
+        "url": "https://jobcityjob.app/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free registration for job seekers"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Top Ad Banner -->
+  <div class="ad-banner top-ad" id="topAd">
+    <div class="ad-content">
+      <span class="ad-label">Sponsored</span>
+      <span id="adText">🚀 Premium Global Talent – Hire faster with Jobcityjob Pro</span>
+      <button class="ad-close" onclick="document.getElementById('topAd').style.display='none'">×</button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo" onclick="showPage('home')">
+        <span class="logo-icon">🌍</span>
+        <span class="logo-text">Jobcity<span>job</span></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#" onclick="showPage('home')" data-i18n="nav.home">Home</a>
+        <a href="#" onclick="showPage('how')" data-i18n="nav.how">How it Works</a>
+        <a href="#" onclick="showPage('pricing')" data-i18n="nav.pricing">Pricing</a>
+        <a href="#" onclick="showPage('blog')">Experiences</a>
+        <a href="#" onclick="showPage('ratings')">Ratings</a>
+        <a href="#" onclick="showPage('about')" data-i18n="nav.about">About</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-currency">
+          <select id="langSelect" onchange="changeLanguage(this.value)" title="Language">
+            <option value="en">🇺🇸 EN</option>
+            <option value="es">🇪🇸 ES</option>
+            <option value="fr">🇫🇷 FR</option>
+            <option value="de">🇩🇪 DE</option>
+            <option value="pt">🇧🇷 PT</option>
+            <option value="ar">🇸🇦 AR</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="hi">🇮🇳 HI</option>
+            <option value="ja">🇯🇵 JA</option>
+          </select>
+          <select id="currencySelect" onchange="changeCurrency(this.value)" title="Currency">
+            <option value="USD">$ USD</option>
+            <option value="EUR">€ EUR</option>
+            <option value="GBP">£ GBP</option>
+            <option value="NGN">₦ NGN</option>
+            <option value="INR">₹ INR</option>
+            <option value="JPY">¥ JPY</option>
+            <option value="CNY">¥ CNY</option>
+            <option value="BRL">R$ BRL</option>
+            <option value="AED">د.إ AED</option>
+          </select>
+        </div>
+        <button class="btn btn-ghost" id="loginBtn" onclick="showAuth('login')" data-i18n="nav.login">Login</button>
+        <button class="btn btn-primary" id="registerBtn" onclick="showAuth('register')" data-i18n="nav.register">Register</button>
+        <button class="btn btn-outline" id="dashboardBtn" style="display:none" onclick="goToDashboard()" data-i18n="nav.dashboard">Dashboard</button>
+        <button class="btn btn-ghost" id="logoutBtn" style="display:none" onclick="logout()" data-i18n="nav.logout">Logout</button>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- HOME PAGE -->
+    <section id="page-home" class="page active">
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+          <div class="hero-text">
+            <h1 data-i18n="hero.title">Jobcityjob – Find the Perfect Talent.<br><span>Anywhere on Earth.</span></h1>
+            <p data-i18n="hero.subtitle">The world’s most trusted international job-matching platform. Employees register free. Employers unlock verified contacts after a simple search & payment. Search jobs, hire talent, work abroad.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary btn-lg" onclick="showAuth('register')" data-i18n="hero.ctaEmployee">I’m Looking for Work</button>
+              <button class="btn btn-secondary btn-lg" onclick="showAuth('register')" data-i18n="hero.ctaEmployer">I’m Hiring</button>
+            </div>
+            <div class="hero-stats">
+              <div class="stat"><strong id="statEmployees">12,480+</strong><span data-i18n="stats.employees">Verified Employees</span></div>
+              <div class="stat"><strong id="statCountries">95+</strong><span data-i18n="stats.countries">Countries</span></div>
+              <div class="stat"><strong id="statMatches">8,200+</strong><span data-i18n="stats.matches">Successful Matches</span></div>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-photo-grid">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=480&fit=crop&q=80" alt="Professional woman ready for global opportunities" class="hero-img hero-img-main" loading="eager" width="400" height="480" />
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=220&h=220&fit=crop&q=80" alt="Skilled professional from Africa" class="hero-img hero-img-sm hero-img-1" loading="lazy" width="220" height="220" />
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=220&h=220&fit=crop&q=80" alt="Professional woman Asia Pacific" class="hero-img hero-img-sm hero-img-2" loading="lazy" width="220" height="220" />
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=220&h=220&fit=crop&q=80" alt="Business professional Europe" class="hero-img hero-img-sm hero-img-3" loading="lazy" width="220" height="220" />
+            </div>
+            <div class="floating-card card-1">
+              <div class="card-avatar">👩‍💻</div>
+              <div>
+                <strong>Software Engineer</strong>
+                <small>Lagos • 5 yrs exp</small>
+              </div>
+            </div>
+            <div class="floating-card card-2">
+              <div class="card-avatar">👨‍🔧</div>
+              <div>
+                <strong>Mechanical Tech</strong>
+                <small>Dubai • Ready now</small>
+              </div>
+            </div>
+            <div class="floating-card card-3">
+              <div class="card-avatar">👩‍⚕️</div>
+              <div>
+                <strong>Registered Nurse</strong>
+                <small>Toronto • Licensed</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Global trust strip -->
+      <div class="global-strip">
+        <div class="container">
+          <p>Used worldwide · 95+ countries · Multi-language · Multi-currency · Verified talent</p>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <section class="features section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="features.title">Why Jobcityjob?</h2>
+          <div class="features-grid">
+            <div class="feature-card has-photo">
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=480&h=240&fit=crop&q=80" alt="Verified professional documents and trust" class="feature-photo" loading="lazy" width="480" height="240" />
+              <div class="feature-body">
+                <div class="feature-icon">🛡️</div>
+                <h3 data-i18n="features.f1title">Verified Profiles</h3>
+                <p data-i18n="features.f1desc">Every employee provides government-approved ID and traceable referees. Trust built in.</p>
+              </div>
+            </div>
+            <div class="feature-card has-photo">
+              <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=480&h=240&fit=crop&q=80" alt="Diverse global team collaborating" class="feature-photo" loading="lazy" width="480" height="240" />
+              <div class="feature-body">
+                <div class="feature-icon">🌐</div>
+                <h3 data-i18n="features.f2title">Truly Global</h3>
+                <p data-i18n="features.f2desc">95+ countries, multiple languages & currencies. Proximity filters for local or remote talent.</p>
+              </div>
+            </div>
+            <div class="feature-card has-photo">
+              <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=480&h=240&fit=crop&q=80" alt="Secure payment and unlock contacts" class="feature-photo" loading="lazy" width="480" height="240" />
+              <div class="feature-body">
+                <div class="feature-icon">💳</div>
+                <h3 data-i18n="features.f3title">Pay Only When You Match</h3>
+                <p data-i18n="features.f3desc">Search free. Unlock full contact details only after confirmed payment. Card or Bank Transfer.</p>
+              </div>
+            </div>
+            <div class="feature-card has-photo">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=480&h=240&fit=crop&q=80" alt="Fast talent matching results" class="feature-photo" loading="lazy" width="480" height="240" />
+              <div class="feature-body">
+                <div class="feature-icon">⚡</div>
+                <h3 data-i18n="features.f4title">Instant Matching</h3>
+                <p data-i18n="features.f4desc">Smart filters on education, experience, age, gender, skills and location deliver precise results.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ad Mid -->
+      <div class="ad-mid container">
+        <div class="ad-box">
+          <span class="ad-label">Advertisement</span>
+          <p>💼 Looking for skilled workers in Africa, Asia or Latin America? Advertise your openings here – reach thousands of verified professionals daily.</p>
+          <button class="btn btn-sm btn-outline">Advertise with Us</button>
+        </div>
+      </div>
+
+      <!-- How it works preview -->
+      <section class="how-preview section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="how.title">How It Works</h2>
+          <div class="steps steps-with-photos">
+            <div class="step">
+              <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=360&h=200&fit=crop&q=80" alt="Register on Jobcityjob from any country" class="step-photo" loading="lazy" width="360" height="200" />
+              <div class="step-num">1</div>
+              <h4 data-i18n="how.s1">Register Free</h4>
+              <p data-i18n="how.s1d">Create your account as Employee or Employer in under 60 seconds.</p>
+            </div>
+            <div class="step">
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=360&h=200&fit=crop&q=80" alt="Complete profile or search talent globally" class="step-photo" loading="lazy" width="360" height="200" />
+              <div class="step-num">2</div>
+              <h4 data-i18n="how.s2">Complete Profile / Search</h4>
+              <p data-i18n="how.s2d">Employees fill a comprehensive global form. Employers set exact requirements and search.</p>
+            </div>
+            <div class="step">
+              <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=360&h=200&fit=crop&q=80" alt="Secure payment and unlock contacts worldwide" class="step-photo" loading="lazy" width="360" height="200" />
+              <div class="step-num">3</div>
+              <h4 data-i18n="how.s3">Pay & Unlock</h4>
+              <p data-i18n="how.s3d">View matching candidates. Pay securely. Admin confirms → full contacts appear in your Message Centre.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- HOW IT WORKS PAGE -->
+    <section id="page-how" class="page">
+      <div class="container section">
+        <h1 class="page-title" data-i18n="how.title">How It Works</h1>
+        <div class="how-detailed">
+          <div class="how-block">
+            <h3>👤 For Employees (Completely Free)</h3>
+            <ol>
+              <li>Register with email & password</li>
+              <li>Fill the comprehensive Employee Form (personal, education, experience, skills, location, government ID + referee)</li>
+              <li>Your profile becomes searchable by verified employers worldwide</li>
+              <li>When an employer unlocks your contact, you may receive messages in your dashboard</li>
+            </ol>
+          </div>
+          <div class="how-block">
+            <h3>🏢 For Employers</h3>
+            <ol>
+              <li>Register your company account</li>
+              <li>Fill the Employer Requirements Form (job title, education, age range, gender preference, experience, location/proximity, skills…)</li>
+              <li>Click <strong>Search</strong> – system shows matching employees (contacts hidden)</li>
+              <li>Select candidates → proceed to Payment (Card or Bank Transfer)</li>
+              <li>After payment confirmation by Admin, full contact details are delivered to your Message Centre</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="page-pricing" class="page">
+      <div class="container section">
+        <h1 class="page-title" data-i18n="pricing.title">Simple, Transparent Pricing</h1>
+        <p class="page-sub" data-i18n="pricing.sub">Employees never pay. Employers pay only when they want full contact details.</p>
+        <div class="pricing-cards">
+          <div class="price-card">
+            <h3 data-i18n="pricing.free">Employee</h3>
+            <div class="price">$0</div>
+            <ul>
+              <li data-i18n="pricing.f1">Full profile creation</li>
+              <li data-i18n="pricing.f2">Global visibility</li>
+              <li data-i18n="pricing.f3">Message centre access</li>
+              <li data-i18n="pricing.f4">No hidden fees</li>
+            </ul>
+            <button class="btn btn-primary" onclick="showAuth('register')" data-i18n="pricing.ctaFree">Register Free</button>
+          </div>
+          <div class="price-card featured">
+            <div class="badge" data-i18n="pricing.popular">Most Popular</div>
+            <h3 data-i18n="pricing.employer">Employer Unlock</h3>
+            <div class="price"><span id="priceDisplay">₦100</span> <small>/ job</small></div>
+            <p class="note" id="priceDual" style="text-align:center;margin:0.35rem 1rem 0">Base fee in Nigerian Naira (reference for all countries)</p>
+            <p class="note" data-price-note style="text-align:center;margin:0.35rem 1rem">Fee is ₦100 or the equivalent in your currency. Exchange rates use stale-while-revalidate: cached price shows instantly, then updates in the background.</p>
+            <p class="note" id="fxStatus" style="text-align:center;margin:0.25rem 1rem;font-size:0.8rem">FX rates: loading…</p>
+            <p class="note" style="text-align:center;margin:0.5rem 1rem">Payable by the employer only. Employee contacts are released once your Paystack payment is verified.</p>
+            <ul>
+              <li data-i18n="pricing.e1">Advanced search filters</li>
+              <li data-i18n="pricing.e2">View matching profiles</li>
+              <li data-i18n="pricing.e3">Unlock full contacts immediately after your secure payment of ₦100</li>
+              <li data-i18n="pricing.e4">Paystack (Card / Bank / USSD)</li>
+              <li data-i18n="pricing.e5">Secure Message Centre delivery</li>
+            </ul>
+            <button class="btn btn-primary" onclick="showAuth('register')" data-i18n="pricing.ctaEmployer">Start Hiring</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="page-about" class="page">
+      <div class="container section">
+        <h1 class="page-title" data-i18n="about.title">About Jobcityjob</h1>
+        <div class="about-layout">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=640&h=400&fit=crop&q=80" alt="Global team collaborating – Jobcityjob connects talent worldwide" class="about-photo" loading="lazy" width="640" height="400" />
+          <div class="about-text">
+            <p data-i18n="about.p1">Jobcityjob is an international standard platform designed to connect skilled professionals and service providers with employers across borders. We prioritize trust, verification, and fairness.</p>
+            <p data-i18n="about.p2">Employees create rich, globally-compliant profiles free of charge. Employers search with precision filters and unlock verified contact information only after confirmed payment. Our admin team verifies payments before releasing sensitive data.</p>
+            <p data-i18n="about.p3">Supporting 95+ countries, multiple languages and currencies, we make cross-border talent acquisition simple, transparent and secure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTH MODAL -->
+    <div class="modal-overlay" id="authModal">
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal('authModal')">×</button>
+        <div class="auth-tabs">
+          <button class="tab active" id="tabLogin" onclick="switchAuthTab('login')" data-i18n="auth.login">Login</button>
+          <button class="tab" id="tabRegister" onclick="switchAuthTab('register')" data-i18n="auth.register">Register</button>
+        </div>
+        <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label data-i18n="auth.email">Email</label>
+            <input type="email" id="loginEmail" required placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="auth.password">Password</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="auth.loginBtn">Login</button>
+        </form>
+        <form id="registerForm" class="auth-form" style="display:none" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label data-i18n="auth.accountType">I am a…</label>
+            <div class="radio-group">
+              <label><input type="radio" name="userType" value="employee" checked /> <span data-i18n="auth.employee">Employee / Job Seeker</span></label>
+              <label><input type="radio" name="userType" value="employer" /> <span data-i18n="auth.employer">Employer / Company</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="auth.fullName">Full Name / Company Name</label>
+            <input type="text" id="regName" required />
+          </div>
+          <div class="form-group">
+            <label data-i18n="auth.email">Email</label>
+            <input type="email" id="regEmail" required />
+          </div>
+          <div class="form-group">
+            <label data-i18n="auth.password">Password</label>
+            <input type="password" id="regPassword" required minlength="6" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="auth.country">Country</label>
+            <select id="regCountry" required></select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="auth.registerBtn">Create Account</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- EMPLOYEE DASHBOARD -->
+    <section id="page-employee-dash" class="page">
+      <div class="container section">
+        <div class="dash-header">
+          <h1 data-i18n="dash.employeeTitle">Employee Dashboard</h1>
+          <p id="empWelcome"></p>
+        </div>
+        <div class="dash-grid">
+          <div class="dash-card">
+            <h3 data-i18n="dash.profileStatus">Profile Status</h3>
+            <div id="profileStatus" class="status-badge incomplete">Incomplete</div>
+            <button class="btn btn-primary" onclick="showPage('employee-form')" data-i18n="dash.completeProfile">Complete / Edit Profile</button>
+          </div>
+          <div class="dash-card">
+            <h3 data-i18n="dash.messages">Message Centre</h3>
+            <div id="empMessages" class="message-list">
+              <p class="empty">No messages yet. When an employer unlocks your contact you will see it here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPLOYEE FORM -->
+    <section id="page-employee-form" class="page">
+      <div class="container section">
+        <h1 class="page-title" data-i18n="empForm.title">Employee Registration Form</h1>
+        <p class="page-sub" data-i18n="empForm.sub">Complete each category below. Information is used by employers worldwide. Fields marked * are required.</p>
+
+        <!-- Category navigation -->
+        <nav class="form-category-nav" id="empFormNav" aria-label="Form categories">
+          <button type="button" class="cat-nav-btn active" data-target="cat-profession" onclick="scrollToEmpCategory('cat-profession')">1. Profession</button>
+          <button type="button" class="cat-nav-btn" data-target="cat-personal" onclick="scrollToEmpCategory('cat-personal')">2. Personal</button>
+          <button type="button" class="cat-nav-btn" data-target="cat-education" onclick="scrollToEmpCategory('cat-education')">3. Education</button>
+          <button type="button" class="cat-nav-btn" data-target="cat-experience" onclick="scrollToEmpCategory('cat-experience')">4. Experience</button>
+          <button type="button" class="cat-nav-btn" data-target="cat-availability" onclick="scrollToEmpCategory('cat-availability')">5. Availability</button>
+          <button type="button" class="cat-nav-btn" data-target="cat-identity" onclick="scrollToEmpCategory('cat-identity')">6. ID & Referee</button>
+          <button type="button" class="cat-nav-btn" data-target="cat-consent" onclick="scrollToEmpCategory('cat-consent')">7. Consent</button>
+        </nav>
+
+        <form id="employeeForm" class="multi-form categorised-form" onsubmit="saveEmployeeProfile(event)">
+
+          <!-- ========== CATEGORY 1: PROFESSION ========== -->
+          <fieldset id="cat-profession" class="form-category">
+            <legend>
+              <span class="cat-badge">1</span>
+              Profession / Job Category *
+            </legend>
+            <p class="note">Select the main category that best describes the work you offer. Employers filter by this.</p>
+            <div class="profession-grid" id="professionGrid">
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Information Technology" required />
+                <span class="prof-icon">💻</span>
+                <span class="prof-name">Information Technology</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Healthcare" />
+                <span class="prof-icon">🏥</span>
+                <span class="prof-name">Healthcare & Nursing</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Engineering & Construction" />
+                <span class="prof-icon">🔧</span>
+                <span class="prof-name">Engineering & Construction</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Education" />
+                <span class="prof-icon">📚</span>
+                <span class="prof-name">Education & Teaching</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Hospitality & Tourism" />
+                <span class="prof-icon">🏨</span>
+                <span class="prof-name">Hospitality & Tourism</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Domestic / Household Services" />
+                <span class="prof-icon">🏠</span>
+                <span class="prof-name">Domestic / Household</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Security" />
+                <span class="prof-icon">🛡️</span>
+                <span class="prof-name">Security Services</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Finance & Banking" />
+                <span class="prof-icon">💼</span>
+                <span class="prof-name">Finance & Banking</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Manufacturing" />
+                <span class="prof-icon">🏭</span>
+                <span class="prof-name">Manufacturing</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Agriculture" />
+                <span class="prof-icon">🌾</span>
+                <span class="prof-name">Agriculture</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Transportation & Logistics" />
+                <span class="prof-icon">🚚</span>
+                <span class="prof-name">Transport & Logistics</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Retail & Sales" />
+                <span class="prof-icon">🛒</span>
+                <span class="prof-name">Retail & Sales</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Oil & Gas" />
+                <span class="prof-icon">⛽</span>
+                <span class="prof-name">Oil & Gas</span>
+              </label>
+              <label class="profession-card">
+                <input type="radio" name="jobCategory" value="Other" />
+                <span class="prof-icon">✨</span>
+                <span class="prof-name">Other / Services</span>
+              </label>
+            </div>
+            <div class="form-row" style="margin-top:1rem">
+              <div class="form-group">
+                <label>Specific Job Title / Role *</label>
+                <input type="text" name="jobTitle" required placeholder="e.g. Registered Nurse, Welder, Software Developer, Housekeeper" />
+              </div>
+              <div class="form-group">
+                <label>Years of Relevant Experience *</label>
+                <select name="experienceYears" required>
+                  <option value="">Select</option>
+                  <option value="0">Fresher / &lt; 1 year</option>
+                  <option value="1">1–2 years</option>
+                  <option value="3">3–5 years</option>
+                  <option value="6">6–10 years</option>
+                  <option value="11">11–15 years</option>
+                  <option value="16">16+ years</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ========== CATEGORY 2: PERSONAL ========== -->
+          <fieldset id="cat-personal" class="form-category">
+            <legend>
+              <span class="cat-badge">2</span>
+              Personal Information
+            </legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Legal Name *</label>
+                <input type="text" name="fullName" required />
+              </div>
+              <div class="form-group">
+                <label>Preferred Name</label>
+                <input type="text" name="preferredName" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Date of Birth *</label>
+                <input type="date" name="dob" required />
+              </div>
+              <div class="form-group">
+                <label>Gender *</label>
+                <select name="gender" required>
+                  <option value="">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other / Prefer not to say</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Nationality *</label>
+                <select name="nationality" id="empNationality" required></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Marital Status</label>
+                <select name="marital">
+                  <option value="">Select</option>
+                  <option>Single</option>
+                  <option>Married</option>
+                  <option>Divorced</option>
+                  <option>Widowed</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Phone (with country code) *</label>
+                <input type="tel" name="phone" required placeholder="+234 800 000 0000" />
+              </div>
+              <div class="form-group">
+                <label>WhatsApp Number *</label>
+                <input type="tel" name="whatsapp" required placeholder="+234 800 000 0000" />
+                <small>Include country code. Used by employers to invite candidates for interview via WhatsApp.</small>
+              </div>
+              <div class="form-group">
+                <label>Alternative Phone</label>
+                <input type="tel" name="phone2" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label>Current Residential Address *</label>
+              <textarea name="address" rows="2" required></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>City *</label>
+                <input type="text" name="city" required />
+              </div>
+              <div class="form-group">
+                <label>State / Province *</label>
+                <input type="text" name="state" required />
+              </div>
+              <div class="form-group">
+                <label>Country *</label>
+                <select name="country" id="empCountry" required onchange="onEmployeeCountryChange()"></select>
+                <small id="empAddressHint">City and region / state</small>
+              </div>
+              <div class="form-group">
+                <label>Postal / Zip Code</label>
+                <input type="text" name="postal" />
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ========== CATEGORY 3: EDUCATION ========== -->
+          <fieldset id="cat-education" class="form-category">
+            <legend>
+              <span class="cat-badge">3</span>
+              Education & Qualifications
+            </legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Highest Education Level *</label>
+                <select name="education" required>
+                  <option value="">Select</option>
+                  <option>Primary / Elementary</option>
+                  <option>Secondary / High School</option>
+                  <option>Diploma / Certificate</option>
+                  <option>Bachelor’s Degree</option>
+                  <option>Master’s Degree</option>
+                  <option>Doctorate / PhD</option>
+                  <option>Professional Certification</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Field of Study</label>
+                <input type="text" name="fieldOfStudy" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Institution Name</label>
+              <input type="text" name="institution" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Year Graduated</label>
+                <input type="number" name="gradYear" min="1950" max="2030" />
+              </div>
+              <div class="form-group">
+                <label>Additional Certifications / Licenses</label>
+                <input type="text" name="certifications" placeholder="e.g. PMP, AWS, Nursing License" />
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ========== CATEGORY 4: EXPERIENCE ========== -->
+          <fieldset id="cat-experience" class="form-category">
+            <legend>
+              <span class="cat-badge">4</span>
+              Work Experience & Skills
+            </legend>
+            <input type="hidden" name="industry" id="empIndustryHidden" value="" />
+            <div class="form-group">
+              <label>Key Skills (comma separated) *</label>
+              <textarea name="skills" rows="2" required placeholder="e.g. Python, Project Management, Welding, Customer Service, Childcare"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Brief Career Summary</label>
+              <textarea name="summary" rows="3" placeholder="2–4 sentences about your background and goals"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Resume / CV text (ATS-friendly)</label>
+              <textarea name="resumeText" rows="4" placeholder="Paste key resume lines here — job titles, companies, dates, achievements. Helps employers and ATS keyword matching."></textarea>
+              <small>Structured plain text improves matching, similar to how Applicant Tracking Systems parse CVs.</small>
+            </div>
+          </fieldset>
+
+          <!-- ========== CATEGORY 5: AVAILABILITY ========== -->
+          <fieldset id="cat-availability" class="form-category">
+            <legend>
+              <span class="cat-badge">5</span>
+              Availability & Preferences
+            </legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Availability *</label>
+                <select name="availability" required>
+                  <option value="">Select</option>
+                  <option>Immediately</option>
+                  <option>Within 2 weeks</option>
+                  <option>Within 1 month</option>
+                  <option>Within 3 months</option>
+                  <option>Not specified</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Preferred Work Type</label>
+                <select name="workType">
+                  <option>Full-time</option>
+                  <option>Part-time</option>
+                  <option>Contract / Temporary</option>
+                  <option>Remote only</option>
+                  <option>Hybrid</option>
+                  <option>Any</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Willing to Relocate?</label>
+                <select name="relocate">
+                  <option>Yes</option>
+                  <option>No</option>
+                  <option>Within country only</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Preferred Locations / Regions</label>
+              <input type="text" name="preferredLocations" placeholder="e.g. Dubai, Canada, Remote, West Africa" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Expected Salary (Min)</label>
+                <input type="number" name="salaryMin" min="0" />
+              </div>
+              <div class="form-group">
+                <label>Currency</label>
+                <select name="salaryCurrency" id="empSalaryCurrency"></select>
+              </div>
+              <div class="form-group">
+                <label>Salary Period</label>
+                <select name="salaryPeriod">
+                  <option>Monthly</option>
+                  <option>Yearly</option>
+                  <option>Hourly</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ========== CATEGORY 6: ID & REFEREE ========== -->
+          <fieldset id="cat-identity" class="form-category highlight-fieldset">
+            <legend>
+              <span class="cat-badge">6</span>
+              Government ID & Traceable Referee *
+            </legend>
+            <p class="note">Required for global trust. Employers see that verification exists; full details stay protected until unlock.</p>
+            <p class="note" id="empCountryRulesNote">Select <strong>Country of Residence</strong> above — ID types and required fields update automatically for that country.</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Government ID Type *</label>
+                <select name="idType" id="empIdType" required>
+                  <option value="">Select country first</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label id="empIdNumberLabel">ID Number *</label>
+                <input type="text" name="idNumber" id="empIdNumber" required placeholder="Enter ID number" />
+              </div>
+              <div class="form-group">
+                <label>Issuing Country *</label>
+                <select name="idCountry" id="empIdCountry" required></select>
+              </div>
+            </div>
+            <div id="empCountryExtraFields" class="country-extra-fields"></div>
+            <div class="form-group">
+              <label>Upload ID Document (mock)</label>
+              <input type="file" name="idFile" accept="image/*,.pdf" />
+              <small>Accepted: JPG, PNG, PDF (max 5 MB). Stored securely.</small>
+            </div>
+            <hr />
+            <h4 class="subcat-title">Traceable Referee (must be verifiable)</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Referee Full Name *</label>
+                <input type="text" name="refName" required />
+              </div>
+              <div class="form-group">
+                <label>Relationship *</label>
+                <select name="refRelation" required>
+                  <option value="">Select</option>
+                  <option>Former Employer / Supervisor</option>
+                  <option>Academic / Teacher</option>
+                  <option>Religious Leader</option>
+                  <option>Community Leader</option>
+                  <option>Professional Colleague</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Referee Phone *</label>
+                <input type="tel" name="refPhone" required />
+              </div>
+              <div class="form-group">
+                <label>Referee Email</label>
+                <input type="email" name="refEmail" />
+              </div>
+              <div class="form-group">
+                <label>Referee Organisation / Position</label>
+                <input type="text" name="refOrg" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Referee Government ID Type & Number (optional but recommended)</label>
+              <input type="text" name="refIdInfo" placeholder="e.g. Passport A1234567 – Nigeria" />
+            </div>
+          </fieldset>
+
+          <!-- ========== CATEGORY 7: CONSENT ========== -->
+          <fieldset id="cat-consent" class="form-category">
+            <legend>
+              <span class="cat-badge">7</span>
+              Emergency Contact & Consent
+            </legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Emergency Contact Name</label>
+                <input type="text" name="emergencyName" />
+              </div>
+              <div class="form-group">
+                <label>Emergency Phone</label>
+                <input type="tel" name="emergencyPhone" />
+              </div>
+            </div>
+            <div class="form-group checkbox-group">
+              <label>
+                <input type="checkbox" name="consentData" required />
+                I consent to Jobcityjob storing and processing my data for the purpose of matching with employers. I understand contacts are only shared after employer payment confirmation.
+              </label>
+            </div>
+            <div class="form-group checkbox-group">
+              <label>
+                <input type="checkbox" name="consentAccuracy" required />
+                I confirm that all information provided is true and accurate to the best of my knowledge.
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg" data-i18n="empForm.save">Save Profile</button>
+            <button type="button" class="btn btn-ghost" onclick="showPage('employee-dash')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- EMPLOYER DASHBOARD -->
+    <section id="page-employer-dash" class="page">
+      <div class="container section">
+        <div class="dash-header">
+          <h1 data-i18n="dash.employerTitle">Employer Dashboard</h1>
+          <p id="emprWelcome"></p>
+          <p class="ats-badge-line"><span class="ats-badge">ATS</span> Built-in Applicant Tracking — move candidates through hiring stages</p>
+        </div>
+        <div class="dash-actions">
+          <button class="btn btn-primary" onclick="showPage('employer-form')" data-i18n="dash.newSearch">New Search / Requirements</button>
+        </div>
+
+        <!-- ATS Talent Pipeline -->
+        <div class="dash-card wide ats-pipeline-wrap">
+          <h3>Talent Pipeline <small style="font-weight:500;color:var(--text-muted)">(ATS stages)</small></h3>
+          <p class="note" style="margin-bottom:1rem">Unlocked candidates appear here. Drag-style: use the stage buttons to track progress — same workflow as modern Applicant Tracking Systems.</p>
+          <div class="ats-pipeline" id="atsPipeline">
+            <div class="ats-column" data-stage="new">
+              <div class="ats-col-head">New <span class="ats-count" id="atsCount-new">0</span></div>
+              <div class="ats-col-body" id="atsCol-new"></div>
+            </div>
+            <div class="ats-column" data-stage="screening">
+              <div class="ats-col-head">Screening <span class="ats-count" id="atsCount-screening">0</span></div>
+              <div class="ats-col-body" id="atsCol-screening"></div>
+            </div>
+            <div class="ats-column" data-stage="interview">
+              <div class="ats-col-head">Interview <span class="ats-count" id="atsCount-interview">0</span></div>
+              <div class="ats-col-body" id="atsCol-interview"></div>
+            </div>
+            <div class="ats-column" data-stage="offer">
+              <div class="ats-col-head">Offer <span class="ats-count" id="atsCount-offer">0</span></div>
+              <div class="ats-col-body" id="atsCol-offer"></div>
+            </div>
+            <div class="ats-column" data-stage="hired">
+              <div class="ats-col-head">Hired <span class="ats-count" id="atsCount-hired">0</span></div>
+              <div class="ats-col-body" id="atsCol-hired"></div>
+            </div>
+            <div class="ats-column" data-stage="rejected">
+              <div class="ats-col-head">Rejected <span class="ats-count" id="atsCount-rejected">0</span></div>
+              <div class="ats-col-body" id="atsCol-rejected"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div class="dash-card wide">
+            <h3 data-i18n="dash.messages">Message Centre – Unlocked Contacts</h3>
+            <div id="emprMessages" class="message-list">
+              <p class="empty">No unlocked contacts yet. Complete a search and payment to receive candidate details here.</p>
+            </div>
+          </div>
+          <div class="dash-card">
+            <h3>Pending Payments</h3>
+            <div id="pendingPayments" class="pending-list">
+              <p class="empty">None</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPLOYER FORM + SEARCH -->
+    <section id="page-employer-form" class="page">
+      <div class="container section">
+        <h1 class="page-title" data-i18n="emprForm.title">Employer Requirements & Search</h1>
+        <p class="page-sub" data-i18n="emprForm.sub">Specify exactly the worker you need. Jobcityjob scores and ranks candidates like an Applicant Tracking System (ATS), then unlocks full contacts after payment.</p>
+        <form id="employerForm" class="multi-form" onsubmit="runSearch(event)">
+          <fieldset>
+            <legend>Job / Position Requirements</legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Job Title / Role Needed *</label>
+                <input type="text" name="jobTitle" required placeholder="e.g. Registered Nurse, Welder, Software Developer" />
+              </div>
+              <div class="form-group">
+                <label>Industry</label>
+                <select name="industry">
+                  <option value="">Any</option>
+                  <option>Information Technology</option>
+                  <option>Healthcare</option>
+                  <option>Engineering & Construction</option>
+                  <option>Education</option>
+                  <option>Hospitality & Tourism</option>
+                  <option>Manufacturing</option>
+                  <option>Finance & Banking</option>
+                  <option>Agriculture</option>
+                  <option>Transportation & Logistics</option>
+                  <option>Retail & Sales</option>
+                  <option>Oil & Gas</option>
+                  <option>Domestic / Household Services</option>
+                  <option>Security</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Minimum Education *</label>
+                <select name="minEducation" required>
+                  <option value="">Any</option>
+                  <option>Primary / Elementary</option>
+                  <option>Secondary / High School</option>
+                  <option>Diploma / Certificate</option>
+                  <option>Bachelor’s Degree</option>
+                  <option>Master’s Degree</option>
+                  <option>Doctorate / PhD</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Minimum Years Experience *</label>
+                <select name="minExperience" required>
+                  <option value="0">Any / Fresher</option>
+                  <option value="1">1+</option>
+                  <option value="3">3+</option>
+                  <option value="5">5+</option>
+                  <option value="8">8+</option>
+                  <option value="10">10+</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Preferred Gender</label>
+                <select name="gender">
+                  <option value="">Any</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Age Range (Min)</label>
+                <input type="number" name="ageMin" min="16" max="70" placeholder="18" />
+              </div>
+              <div class="form-group">
+                <label>Age Range (Max)</label>
+                <input type="number" name="ageMax" min="16" max="70" placeholder="55" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Required Skills (comma separated)</label>
+              <input type="text" name="skills" placeholder="e.g. welding, customer service, Python" />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Location & Proximity</legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Preferred Country *</label>
+                <select name="country" id="emprCountry" required onchange="onEmployerCountryChange()"></select>
+              </div>
+              <div class="form-group">
+                <label>City / Region (optional)</label>
+                <input type="text" name="city" />
+              </div>
+              <div class="form-group">
+                <label>Proximity Preference</label>
+                <select name="proximity">
+                  <option value="any">Anywhere (including remote)</option>
+                  <option value="same-country">Same country only</option>
+                  <option value="same-city">Same city / nearby</option>
+                  <option value="willing-relocate">Willing to relocate</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Work Arrangement</label>
+              <select name="workType">
+                <option value="">Any</option>
+                <option>Full-time</option>
+                <option>Part-time</option>
+                <option>Contract / Temporary</option>
+                <option>Remote only</option>
+                <option>Hybrid</option>
+              </select>
+            </div>
+            <p class="note" id="emprCountryRulesNote">Country-specific hiring requirements appear below when you select a preferred country.</p>
+            <div id="emprCountryExtraFields" class="country-extra-fields"></div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg" data-i18n="emprForm.search">🔍 Search Matching Employees</button>
+          </div>
+        </form>
+
+        <!-- Search Results (hidden contacts) -->
+        <div id="searchResults" class="search-results" style="display:none">
+          <h2>Matching Candidates <span id="resultCount"></span></h2>
+          <p class="note">Contact details are hidden until payment is confirmed. Select the candidates you wish to unlock.</p>
+          <div id="resultsList" class="results-grid"></div>
+          <div class="unlock-bar" id="unlockBar" style="display:none">
+            <span id="selectedCount">0 selected</span>
+            <button class="btn btn-primary" onclick="proceedToPayment()">Unlock Selected – Proceed to Payment</button>
+            <span class="note" style="color:#fff;opacity:0.95">₦100 or currency equivalent · contacts unlock instantly after payment</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAYMENT PAGE -->
+    <section id="page-payment" class="page">
+      <div class="container section">
+        <h1 class="page-title">Complete Payment</h1>
+        <div class="payment-box">
+          <div class="payment-summary">
+            <h3>Order Summary</h3>
+            <p>Unlocking <strong id="payCount">0</strong> candidate contact(s)</p>
+            <p class="amount">Total per job: <strong id="payAmount">₦100</strong></p>
+            <p class="note" id="payAmountNgn"></p>
+            <p class="note" id="payRateNote">Fee is ₦100 (or equivalent in your currency). Rates may be reviewed from time to time.</p>
+            <p class="note release-note" id="payReleaseNote"><strong>Note for employers:</strong> Employee contacts are released to your Message Centre immediately after your Paystack payment is verified.</p>
+          </div>
+          <div class="payment-methods">
+            <h4>Pay with Paystack</h4>
+            <div id="cardMethod" class="method-panel">
+              <div class="form-group">
+                <label>Card / Bank / USSD</label>
+                <p class="note">You will be redirected to Paystack's secure checkout to complete your payment. Cards, bank, USSD and other Paystack channels are supported.</p>
+              </div>
+              <button class="btn btn-primary btn-block" onclick="submitCardPayment()">💳 Pay with Paystack</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN BACKEND -->
+
+    <!-- Community experiences blog -->
+    <section id="page-blog" class="page">
+      <div class="container section">
+        <h1 class="page-title">Community experiences</h1>
+        <p class="page-sub">Share positive stories about finding work or hiring talent on Jobcityjob.</p>
+        <div class="dash-grid">
+          <div class="dash-card">
+            <h3>Write your experience</h3>
+            <form onsubmit="submitBlogPost(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Your name *</label>
+                  <input id="blogAuthor" required maxlength="80" />
+                </div>
+                <div class="form-group">
+                  <label>I am a…</label>
+                  <select id="blogRole">
+                    <option value="Employee">Employee / Job seeker</option>
+                    <option value="Employer">Employer</option>
+                    <option value="Visitor">Visitor</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Title *</label>
+                <input id="blogTitle" required maxlength="120" placeholder="How Jobcityjob helped me…" />
+              </div>
+              <div class="form-group">
+                <label>Your story *</label>
+                <textarea id="blogBody" required rows="5" placeholder="Tell others about your positive experience…"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Publish experience</button>
+            </form>
+          </div>
+          <div class="dash-card wide">
+            <h3>Stories from the community</h3>
+            <div id="blogList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ratings & recommendations -->
+    <section id="page-ratings" class="page">
+      <div class="container section">
+        <h1 class="page-title">Rate Jobcityjob</h1>
+        <p class="page-sub">Employees and employers: rate our website and services, how you feel, and whether you recommend us.</p>
+        <div id="ratingSummary" class="rating-summary"></div>
+        <div class="dash-grid" style="margin-top:1.5rem">
+          <div class="dash-card">
+            <h3>Submit your rating</h3>
+            <form onsubmit="submitRating(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Your name *</label>
+                  <input id="rateName" required maxlength="80" />
+                </div>
+                <div class="form-group">
+                  <label>I am a… *</label>
+                  <select id="rateRole" required>
+                    <option value="Employee">Employee / Job seeker</option>
+                    <option value="Employer">Employer</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Star rating (1–5) *</label>
+                <select id="rateStars" required>
+                  <option value="5">5 – Excellent</option>
+                  <option value="4">4 – Very good</option>
+                  <option value="3">3 – Good</option>
+                  <option value="2">2 – Fair</option>
+                  <option value="1">1 – Poor</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>How do you feel about Jobcityjob?</label>
+                <select id="rateFeel">
+                  <option value="Very satisfied">Very satisfied</option>
+                  <option value="Satisfied">Satisfied</option>
+                  <option value="Neutral">Neutral</option>
+                  <option value="Disappointed">Disappointed</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Would you recommend Jobcityjob? *</label>
+                <select id="rateRecommend" required>
+                  <option value="yes">Yes – I recommend Jobcityjob</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Comments / recommendations</label>
+                <textarea id="rateComment" rows="4" placeholder="What should we improve? What did you like?"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit rating</button>
+            </form>
+          </div>
+          <div class="dash-card wide">
+            <h3>Recent feedback</h3>
+            <div id="ratingsList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-admin" class="page">
+      <div class="container section">
+        <h1 class="page-title">🛠️ Admin Backend</h1>
+        <p class="page-sub">Payment confirmation panel. Only administrators can access this area.</p>
+        <div class="admin-login" id="adminLoginBox">
+          <div class="form-group">
+            <label>Admin Password</label>
+            <input type="password" id="adminPass" placeholder="Admin password" />
+          </div>
+          <button class="btn btn-primary" onclick="adminLogin()">Enter Admin</button>
+        </div>
+        <div id="adminPanel" style="display:none">
+
+          <div class="dash-card" style="margin-top:2rem">
+            <h3>Currency rates</h3>
+            <p class="note">Rates update automatically. Refresh manually if needed.</p>
+            <div class="form-actions" style="margin-top:1rem">
+              <button type="button" class="btn btn-outline" onclick="JobcityjobFX.forceRefresh()">Refresh currency rates now</button>
+              <span class="note" id="fxStatusAdmin"></span>
+            </div>
+          </div>
+
+          <h3>Pending Payment Confirmations</h3>
+          <div id="adminPendingList" class="admin-list"></div>
+          <h3 style="margin-top:2rem">Recent Confirmed</h3>
+          <div id="adminConfirmedList" class="admin-list"></div>
+
+
+          <div class="dash-card" style="margin-top:2rem">
+            <h3>Email delivery &amp; bounces</h3>
+            <p class="note">Webhook events from Resend, SendGrid, or SES appear here when the backend is connected. Hard bounces and spam complaints suppress future invites to that address.</p>
+            <div class="form-actions" style="margin-bottom:1rem">
+              <button type="button" class="btn btn-outline btn-sm" onclick="simulateEmailBounce()">Simulate bounce</button>
+              <button type="button" class="btn btn-outline btn-sm" onclick="simulateEmailComplaint()">Simulate complaint</button>
+              <button type="button" class="btn btn-outline btn-sm" onclick="simulateEmailDelivered()">Simulate delivered</button>
+            </div>
+            <div id="adminEmailEvents" class="admin-list"></div>
+            <p class="note" style="margin-top:0.75rem">Production webhook URLs: <code>/webhooks/email/resend</code> · <code>/webhooks/email/sendgrid</code> · <code>/webhooks/email/ses</code> (see <code>server/email-webhooks.js</code>)</p>
+          </div>
+
+          <div class="dash-card" style="margin-top:2rem">
+            <h3>Data storage</h3>
+            <p class="note">All users, employee profiles, payments, blog posts, ratings and email events are stored centrally in <strong>Supabase</strong>. No browser-local copies are used for business data, so the same records are shared across every visitor and device.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">🌍</span> Jobcityjob
+        <p>Connecting talent across borders with trust and transparency.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#" onclick="showPage('how')">How it Works</a>
+        <a href="#" onclick="showPage('blog')">Experiences</a>
+        <a href="#" onclick="showPage('ratings')">Ratings</a>
+        <a href="#" onclick="showPage('pricing')">Pricing</a>
+        <a href="#" onclick="showPage('about')">About</a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Jobcityjob. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Welcome music (user-controlled – browsers block autoplay with sound) -->
+  <audio id="welcomeMusic" loop preload="metadata">
+    <source src="https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3" type="audio/mpeg" />
+    <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg" />
+  </audio>
+  <button type="button" id="musicToggle" class="music-toggle" aria-label="Play welcome music" title="Welcome music">
+    <span class="music-icon" id="musicIcon">🎵</span>
+    <span class="music-label" id="musicLabel">Music</span>
+  </button>
+
+
+  <!-- Interview invite modal (WhatsApp / SMS) -->
+  <div class="modal-overlay" id="inviteModal">
+    <div class="modal" style="max-width:480px">
+      <button class="modal-close" onclick="closeModal('inviteModal')">×</button>
+      <h2 style="margin-bottom:0.5rem;font-size:1.25rem">Interview invitation</h2>
+      <p class="note" id="inviteCandidateLabel">Candidate</p>
+      <form id="inviteForm" onsubmit="sendInterviewInvite(event)">
+        <input type="hidden" id="inviteCandidateId" />
+        <input type="hidden" id="inviteChannel" />
+        <div class="form-group">
+          <label>Interview date *</label>
+          <input type="date" id="inviteDate" required />
+        </div>
+        <div class="form-group">
+          <label>Interview time *</label>
+          <input type="time" id="inviteTime" required />
+        </div>
+        <div class="form-group">
+          <label>Venue / location (or video link) *</label>
+          <input type="text" id="inviteVenue" required placeholder="e.g. Head Office, 12 Main St, Lagos — or Zoom link" />
+        </div>
+        <div class="form-group">
+          <label>Extra note (optional)</label>
+          <textarea id="inviteNote" rows="2" placeholder="Please bring ID and certificates"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Message preview</label>
+          <textarea id="invitePreview" rows="6" readonly></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="inviteSendBtn">Open WhatsApp</button>
+          <button type="button" class="btn btn-ghost" onclick="closeModal('inviteModal')">Cancel</button>
+        </div>
+      </form>
+      <p class="note" style="margin-top:0.75rem">WhatsApp, SMS, or Email will open on your device with this invitation ready. Review and press Send. Email is the reliable fallback when WhatsApp or SMS is unavailable.</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div style="padding:2rem;text-align:center;background:#fef3c7;color:#92400e;font-family:system-ui,sans-serif;">
+      <strong>Jobcityjob</strong> works best with JavaScript enabled.
+      Please enable JavaScript to register, search jobs, and hire talent worldwide.
+    </div>
+  </noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/env-config.js" defer></script>
+  <script src="js/db.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/fx.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
