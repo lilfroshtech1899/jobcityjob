@@ -5,7 +5,7 @@ const COUNTRIES = [
   { code: "GB", name: "United Kingdom", currency: "GBP", lang: "en" },
   { code: "CA", name: "Canada", currency: "CAD", lang: "en" },
   { code: "AE", name: "United Arab Emirates", currency: "AED", lang: "ar" },
-  { code: "SA", name: "Saudi Arabia", currency: "AED", lang: "ar" },
+  { code: "SA", name: "Saudi Arabia", currency: "SAR", lang: "ar" },
   { code: "IN", name: "India", currency: "INR", lang: "hi" },
   { code: "CN", name: "China", currency: "CNY", lang: "zh" },
   { code: "JP", name: "Japan", currency: "JPY", lang: "ja" },
@@ -16,20 +16,20 @@ const COUNTRIES = [
   { code: "ZA", name: "South Africa", currency: "ZAR", lang: "en" },
   { code: "KE", name: "Kenya", currency: "KES", lang: "en" },
   { code: "GH", name: "Ghana", currency: "GHS", lang: "en" },
-  { code: "PH", name: "Philippines", currency: "USD", lang: "en" },
+  { code: "PH", name: "Philippines", currency: "PHP", lang: "en" },
   { code: "AU", name: "Australia", currency: "AUD", lang: "en" },
-  { code: "SG", name: "Singapore", currency: "USD", lang: "en" },
-  { code: "MX", name: "Mexico", currency: "USD", lang: "es" },
-  { code: "EG", name: "Egypt", currency: "USD", lang: "ar" },
-  { code: "PK", name: "Pakistan", currency: "USD", lang: "en" },
-  { code: "BD", name: "Bangladesh", currency: "USD", lang: "en" },
-  { code: "ID", name: "Indonesia", currency: "USD", lang: "en" },
-  { code: "TR", name: "Turkey", currency: "USD", lang: "en" },
+  { code: "SG", name: "Singapore", currency: "SGD", lang: "en" },
+  { code: "MX", name: "Mexico", currency: "MXN", lang: "es" },
+  { code: "EG", name: "Egypt", currency: "EGP", lang: "ar" },
+  { code: "PK", name: "Pakistan", currency: "PKR", lang: "en" },
+  { code: "BD", name: "Bangladesh", currency: "BDT", lang: "en" },
+  { code: "ID", name: "Indonesia", currency: "IDR", lang: "en" },
+  { code: "TR", name: "Turkey", currency: "TRY", lang: "en" },
   { code: "IT", name: "Italy", currency: "EUR", lang: "en" },
   { code: "NL", name: "Netherlands", currency: "EUR", lang: "en" },
   { code: "PL", name: "Poland", currency: "EUR", lang: "en" },
-  { code: "RU", name: "Russia", currency: "USD", lang: "en" },
-  { code: "KR", name: "South Korea", currency: "USD", lang: "en" }
+  { code: "RU", name: "Russia", currency: "RUB", lang: "en" },
+  { code: "KR", name: "South Korea", currency: "KRW", lang: "en" }
 ];
 
 /* Exchange: ngnPerUnit = how many NGN equal 1 unit of that currency.
@@ -49,7 +49,18 @@ const CURRENCIES = {
   CAD: { symbol: "C$", ngnPerUnit: 1120, name: "Canadian Dollar" },
   AUD: { symbol: "A$", ngnPerUnit: 1000, name: "Australian Dollar" },
   GHS: { symbol: "GH₵", ngnPerUnit: 100, name: "Ghanaian Cedi" },
-  KES: { symbol: "KSh", ngnPerUnit: 12,  name: "Kenyan Shilling" }
+  KES: { symbol: "KSh", ngnPerUnit: 12,  name: "Kenyan Shilling" },
+  SAR: { symbol: "ر.س", ngnPerUnit: 413, name: "Saudi Riyal" },
+  PHP: { symbol: "₱", ngnPerUnit: 27,   name: "Philippine Peso" },
+  MXN: { symbol: "Mex$", ngnPerUnit: 90, name: "Mexican Peso" },
+  EGP: { symbol: "E£", ngnPerUnit: 50,  name: "Egyptian Pound" },
+  PKR: { symbol: "Rs", ngnPerUnit: 5.6, name: "Pakistani Rupee" },
+  BDT: { symbol: "৳", ngnPerUnit: 14,   name: "Bangladeshi Taka" },
+  IDR: { symbol: "Rp", ngnPerUnit: 0.097, name: "Indonesian Rupiah" },
+  TRY: { symbol: "₺", ngnPerUnit: 45.6, name: "Turkish Lira" },
+  RUB: { symbol: "₽", ngnPerUnit: 16.9, name: "Russian Ruble" },
+  KRW: { symbol: "₩", ngnPerUnit: 1.15, name: "South Korean Won" },
+  SGD: { symbol: "S$", ngnPerUnit: 1183, name: "Singapore Dollar" }
 };
 
 const BASE_PRICE_NGN = 100;

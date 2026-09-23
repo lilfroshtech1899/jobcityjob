@@ -16,6 +16,8 @@ import "./load-env.js"; // load project-root .env (PAYSTACK/API secrets)
 import express from "express";
 import crypto from "crypto";
 import fs from "fs";
+import net from "net";
+import os from "os";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -250,6 +252,41 @@ export function assertNotSuppressed(email) {
 if (process.argv[1] && process.argv[1].includes("email-webhooks")) {
   const app = express();
   app.use(createEmailWebhookRouter());
-  const port = process.env.PORT || 3002;
-  app.listen(port, () => console.log(`Jobcityjob email webhooks on :${port}`));
+
+  // Local preview: also serve the built SPA (public/) so client-side routes
+  // like /desk load index.html — mirrors the Vercel/Netlify rewrites.
+  // Webhook routes above keep priority. Run `node scripts/build.js` first.
+  const PUBLIC_DIR = path.join(__dirname, "..", "public");
+  app.use(express.static(PUBLIC_DIR));
+  app.use((req, res, next) => {
+    if (req.path.startsWith("/webhooks/")) return next();
+    res.sendFile(path.join(PUBLIC_DIR, "index.html"));
+  });
+
+  // Listens on all interfaces (0.0.0.0) so it works both locally and over
+  // the LAN/internet — same port as the deployed site: 5500.
+  const port = Number(process.env.PORT || 5500);
+
+  // Pre-flight: another process (e.g. VS Code Live Server) may already own
+  // this port. Node reuses the port silently, so requests would alternate
+  // between us and that server — and /desk 404s whenever the other one
+  // answers. Warn early instead of failing confusingly.
+  const probe = net.createConnection({ host: "127.0.0.1", port });
+  probe.once("connect", () => {
+    console.warn(`[!] Port ${port} is already in use — usually VS Code Live Server.`);
+    console.warn(`    Stop that server (VS Code status bar → "Stop Live Server") `);
+    console.warn(`    and restart this preview, otherwise /desk will randomly give`);
+    console.warn(`    "Cannot GET /desk" when the other server answers the request.`);
+    probe.end();
+  });
+  probe.once("error", () => {});
+
+  app.listen(port, () => {
+    const lan = Object.values(os.networkInterfaces())
+      .flat()
+      .find((i) => i.family === "IPv4" && !i.internal)?.address;
+    console.log(`Jobcityjob webhooks + site preview listening on 0.0.0.0:${port}`);
+    console.log(`  local:  http://localhost:${port}/  (use /desk for admin)`);
+    if (lan) console.log(`  online: http://${lan}:${port}/  (open via your machine's IP)`);
+  });
 }

@@ -1,5 +1,5 @@
 /* ========== Jobcityjob storage helpers ==========
- * Persistent business data now lives in Supabase (see js/db.js).
+ * Persistent business data now lives in MySQL via the PHP API (see js/services/database.js).
  * This module only handles lightweight, non-durable browser prefs
  * (language, currency, welcome-music) that are specific to the local
  * visitor and need not be synced across devices.

@@ -4,12 +4,14 @@
   "description": "Optional FX cron and email webhook helpers for Jobcityjob",
   "type": "module",
   "scripts": {
-    "fx": "node fx-cron.js",
-    "fx:serve": "node fx-cron.js --serve --loop 12",
-    "webhooks": "node email-webhooks.js",
-    "payments": "node payments/index.js"
+    "fx": "node exchange-rates-cron.js",
+    "fx:serve": "node exchange-rates-cron.js --serve --loop 12",
+    "webhooks": "node email-webhooks.js"
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }

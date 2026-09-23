@@ -109,51 +109,64 @@
   <!-- Navigation -->
   <header class="navbar" id="navbar">
     <div class="container nav-inner">
-      <a href="#" class="logo" onclick="showPage('home')">
+      <a href="#" class="logo" onclick="showPage('home')" aria-label="Jobcityjob home">
         <span class="logo-icon">🌍</span>
         <span class="logo-text">Jobcity<span>job</span></span>
       </a>
 
-      <nav class="nav-links" id="navLinks">
-        <a href="#" onclick="showPage('home')" data-i18n="nav.home">Home</a>
-        <a href="#" onclick="showPage('how')" data-i18n="nav.how">How it Works</a>
-        <a href="#" onclick="showPage('pricing')" data-i18n="nav.pricing">Pricing</a>
-        <a href="#" onclick="showPage('blog')">Experiences</a>
-        <a href="#" onclick="showPage('ratings')">Ratings</a>
-        <a href="#" onclick="showPage('about')" data-i18n="nav.about">About</a>
-      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">☰</button>
 
-      <div class="nav-actions">
-        <div class="lang-currency">
-          <select id="langSelect" onchange="changeLanguage(this.value)" title="Language">
-            <option value="en">🇺🇸 EN</option>
-            <option value="es">🇪🇸 ES</option>
-            <option value="fr">🇫🇷 FR</option>
-            <option value="de">🇩🇪 DE</option>
-            <option value="pt">🇧🇷 PT</option>
-            <option value="ar">🇸🇦 AR</option>
-            <option value="zh">🇨🇳 中文</option>
-            <option value="hi">🇮🇳 HI</option>
-            <option value="ja">🇯🇵 JA</option>
-          </select>
-          <select id="currencySelect" onchange="changeCurrency(this.value)" title="Currency">
-            <option value="USD">$ USD</option>
-            <option value="EUR">€ EUR</option>
-            <option value="GBP">£ GBP</option>
-            <option value="NGN">₦ NGN</option>
-            <option value="INR">₹ INR</option>
-            <option value="JPY">¥ JPY</option>
-            <option value="CNY">¥ CNY</option>
-            <option value="BRL">R$ BRL</option>
-            <option value="AED">د.إ AED</option>
-          </select>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <div class="nav-links-list">
+          <a href="#" onclick="showPage('home')" data-i18n="nav.home">Home</a>
+          <a href="#" onclick="showPage('how')" data-i18n="nav.how">How it Works</a>
+          <a href="#" onclick="showPage('pricing')" data-i18n="nav.pricing">Pricing</a>
+          <a href="#" onclick="showPage('blog')">Experiences</a>
+          <a href="#" onclick="showPage('ratings')">Ratings</a>
+          <a href="#" onclick="showPage('about')" data-i18n="nav.about">About</a>
         </div>
-        <button class="btn btn-ghost" id="loginBtn" onclick="showAuth('login')" data-i18n="nav.login">Login</button>
-        <button class="btn btn-primary" id="registerBtn" onclick="showAuth('register')" data-i18n="nav.register">Register</button>
-        <button class="btn btn-outline" id="dashboardBtn" style="display:none" onclick="goToDashboard()" data-i18n="nav.dashboard">Dashboard</button>
-        <button class="btn btn-ghost" id="logoutBtn" style="display:none" onclick="logout()" data-i18n="nav.logout">Logout</button>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">☰</button>
-      </div>
+
+        <div class="nav-meta">
+          <div class="lang-currency">
+            <div class="lang-field">
+              <label class="nav-select-label" for="langSelect">Language</label>
+              <select id="langSelect" onchange="changeLanguage(this.value)" title="Language">
+                <option value="en">🇺🇸 EN</option>
+                <option value="es">🇪🇸 ES</option>
+                <option value="fr">🇫🇷 FR</option>
+                <option value="de">🇩🇪 DE</option>
+                <option value="pt">🇧🇷 PT</option>
+                <option value="ar">🇸🇦 AR</option>
+                <option value="zh">🇨🇳 中文</option>
+                <option value="hi">🇮🇳 HI</option>
+                <option value="ja">🇯🇵 JA</option>
+              </select>
+            </div>
+            <div class="lang-field">
+              <label class="nav-select-label" for="currencySelect">Currency</label>
+              <select id="currencySelect" onchange="changeCurrency(this.value)" title="Currency">
+                <option value="USD">$ USD</option>
+                <option value="EUR">€ EUR</option>
+                <option value="GBP">£ GBP</option>
+                <option value="NGN">₦ NGN</option>
+                <option value="INR">₹ INR</option>
+                <option value="JPY">¥ JPY</option>
+                <option value="CNY">¥ CNY</option>
+                <option value="BRL">R$ BRL</option>
+                <option value="AED">د.إ AED</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="nav-auth">
+            <p class="nav-meta-title">Account</p>
+            <button class="btn btn-ghost" id="loginBtn" onclick="showAuth('login')" data-i18n="nav.login">Login</button>
+            <button class="btn btn-primary" id="registerBtn" onclick="showAuth('register')" data-i18n="nav.register">Register</button>
+            <button class="btn btn-outline" id="dashboardBtn" style="display:none" onclick="goToDashboard()" data-i18n="nav.dashboard">Dashboard</button>
+            <button class="btn btn-ghost" id="logoutBtn" style="display:none" onclick="logout()" data-i18n="nav.logout">Logout</button>
+          </div>
+        </div>
+      </nav>
     </div>
   </header>
 
@@ -288,7 +301,7 @@
               <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=360&h=200&fit=crop&q=80" alt="Secure payment and unlock contacts worldwide" class="step-photo" loading="lazy" width="360" height="200" />
               <div class="step-num">3</div>
               <h4 data-i18n="how.s3">Pay & Unlock</h4>
-              <p data-i18n="how.s3d">View matching candidates. Pay securely. Admin confirms → full contacts appear in your Message Centre.</p>
+              <p data-i18n="how.s3d">View matching candidates. Pay securely. Paystack verifies → full contacts appear in your Message Centre.</p>
             </div>
           </div>
         </div>
@@ -316,7 +329,7 @@
               <li>Fill the Employer Requirements Form (job title, education, age range, gender preference, experience, location/proximity, skills…)</li>
               <li>Click <strong>Search</strong> – system shows matching employees (contacts hidden)</li>
               <li>Select candidates → proceed to Payment (Card or Bank Transfer)</li>
-              <li>After payment confirmation by Admin, full contact details are delivered to your Message Centre</li>
+              <li>After Paystack automatically confirms your payment, full contact details are delivered to your Message Centre</li>
             </ol>
           </div>
         </div>
@@ -369,7 +382,7 @@
           <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=640&h=400&fit=crop&q=80" alt="Global team collaborating – Jobcityjob connects talent worldwide" class="about-photo" loading="lazy" width="640" height="400" />
           <div class="about-text">
             <p data-i18n="about.p1">Jobcityjob is an international standard platform designed to connect skilled professionals and service providers with employers across borders. We prioritize trust, verification, and fairness.</p>
-            <p data-i18n="about.p2">Employees create rich, globally-compliant profiles free of charge. Employers search with precision filters and unlock verified contact information only after confirmed payment. Our admin team verifies payments before releasing sensitive data.</p>
+            <p data-i18n="about.p2">Employees create rich, globally-compliant profiles free of charge. Employers search with precision filters and unlock verified contact information immediately after Paystack confirms their payment.</p>
             <p data-i18n="about.p3">Supporting 95+ countries, multiple languages and currencies, we make cross-border talent acquisition simple, transparent and secure.</p>
           </div>
         </div>
@@ -1222,53 +1235,9 @@
       </div>
     </section>
 
-    <section id="page-admin" class="page">
-      <div class="container section">
-        <h1 class="page-title">🛠️ Admin Backend</h1>
-        <p class="page-sub">Payment confirmation panel. Only administrators can access this area.</p>
-        <div class="admin-login" id="adminLoginBox">
-          <div class="form-group">
-            <label>Admin Password</label>
-            <input type="password" id="adminPass" placeholder="Admin password" />
-          </div>
-          <button class="btn btn-primary" onclick="adminLogin()">Enter Admin</button>
-        </div>
-        <div id="adminPanel" style="display:none">
-
-          <div class="dash-card" style="margin-top:2rem">
-            <h3>Currency rates</h3>
-            <p class="note">Rates update automatically. Refresh manually if needed.</p>
-            <div class="form-actions" style="margin-top:1rem">
-              <button type="button" class="btn btn-outline" onclick="JobcityjobFX.forceRefresh()">Refresh currency rates now</button>
-              <span class="note" id="fxStatusAdmin"></span>
-            </div>
-          </div>
-
-          <h3>Pending Payment Confirmations</h3>
-          <div id="adminPendingList" class="admin-list"></div>
-          <h3 style="margin-top:2rem">Recent Confirmed</h3>
-          <div id="adminConfirmedList" class="admin-list"></div>
-
-
-          <div class="dash-card" style="margin-top:2rem">
-            <h3>Email delivery &amp; bounces</h3>
-            <p class="note">Webhook events from Resend, SendGrid, or SES appear here when the backend is connected. Hard bounces and spam complaints suppress future invites to that address.</p>
-            <div class="form-actions" style="margin-bottom:1rem">
-              <button type="button" class="btn btn-outline btn-sm" onclick="simulateEmailBounce()">Simulate bounce</button>
-              <button type="button" class="btn btn-outline btn-sm" onclick="simulateEmailComplaint()">Simulate complaint</button>
-              <button type="button" class="btn btn-outline btn-sm" onclick="simulateEmailDelivered()">Simulate delivered</button>
-            </div>
-            <div id="adminEmailEvents" class="admin-list"></div>
-            <p class="note" style="margin-top:0.75rem">Production webhook URLs: <code>/webhooks/email/resend</code> · <code>/webhooks/email/sendgrid</code> · <code>/webhooks/email/ses</code> (see <code>server/email-webhooks.js</code>)</p>
-          </div>
-
-          <div class="dash-card" style="margin-top:2rem">
-            <h3>Data storage</h3>
-            <p class="note">All users, employee profiles, payments, blog posts, ratings and email events are stored centrally in <strong>Supabase</strong>. No browser-local copies are used for business data, so the same records are shared across every visitor and device.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Admin page is intentionally NOT in the public HTML. It is injected
+         client-side only when the /desk route is visited (js/app.js →
+         injectAdminPage()), so it never appears in the public page source. -->
   </main>
 
   <!-- Footer -->
@@ -1350,14 +1319,16 @@
     </div>
   </noscript>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://js.paystack.co/v1/inline.js"></script>
-  <script src="js/data.js" defer></script>
-  <script src="js/i18n.js" defer></script>
-  <script src="js/env-config.js" defer></script>
-  <script src="js/db.js" defer></script>
-  <script src="js/storage.js" defer></script>
-  <script src="js/fx.js" defer></script>
+  <!-- Load order matters: runtime-config defines the PHP API path + Paystack
+       public key before the database layer consumes them; preferences and
+       exchange-rates feed app.js. -->
+  <script src="js/data/reference-data.js" defer></script>
+  <script src="js/data/translations.js" defer></script>
+  <script src="js/config/runtime-config.js" defer></script>
+  <script src="js/services/database.js" defer></script>
+  <script src="js/utils/preferences.js" defer></script>
+  <script src="js/services/exchange-rates.js" defer></script>
   <script src="js/app.js" defer></script>
 </body>
 </html>

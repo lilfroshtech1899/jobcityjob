@@ -5,13 +5,13 @@
  * writes public/fx-rates.json for the static site (or serves via Express).
  *
  * Usage:
- *   node fx-cron.js              # fetch once and write JSON
- *   node fx-cron.js --serve      # fetch + serve API on PORT (default 3003)
- *   node fx-cron.js --loop 12     # refresh every N hours (in-process)
+ *   node exchange-rates-cron.js              # fetch once and write JSON
+ *   node exchange-rates-cron.js --serve      # fetch + serve API on PORT (default 3003)
+ *   node exchange-rates-cron.js --loop 12     # refresh every N hours (in-process)
  *
  * System cron example (Linux) - run every 12 hours:
  *   0 * /12 * * *  becomes: minute 0, every 12th hour
- *   cd /path/to/jobcityjob/server && node fx-cron.js
+ *   cd /path/to/jobcityjob/server && node exchange-rates-cron.js
  *   (see server/crontab.example)
  *
  * Env:

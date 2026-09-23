@@ -1,5 +1,5 @@
 [build]
-  command = "node scripts/gen-env-config.js"
+  command = "node scripts/generate-runtime-config.js"
   publish = "."
 
 [build.environment]
@@ -13,6 +13,6 @@
   force = true
 
 [[headers]]
-  for = "/js/env-config.js"
+  for = "/js/config/runtime-config.js"
   [headers.values]
     Cache-Control = "no-cache, must-revalidate"

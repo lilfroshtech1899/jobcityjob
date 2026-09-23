@@ -1,6 +1,6 @@
 -- ============================================================
 -- Jobcityjob — payment & credential-delivery upgrade
--- Run this AFTER supabase-schema.sql (or after the base schema,
+-- Run this AFTER 0001_schema.sql (or after the base schema,
 -- if it is already deployed).
 --
 -- Adds:

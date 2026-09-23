@@ -1,6 +1,6 @@
 /* ========== Jobcityjob Application Logic ==========
- * All persistent data is stored in Supabase via the JCDB module.
- * Only lightweight UI prefs (lang / currency / music) use localStorage.
+ * All persistent data is stored in MySQL via the PHP API and the JCDB
+ * module. Only lightweight UI prefs (lang / currency / music) use localStorage.
  */
 let currentUser = null;
 let currentLang = "en";
@@ -16,41 +16,55 @@ document.addEventListener("DOMContentLoaded", async () => {
   updatePriceDisplay();
   applyTranslations();
 
-  // Restore session from Supabase (if configured)
-  if (typeof JCDB !== "undefined" && typeof supabaseReady === "function" && supabaseReady()) {
+  // Restore session from the PHP API (if configured)
+  if (typeof JCDB !== "undefined" && typeof apiReady === "function" && apiReady()) {
     try {
       const profile = await JCDB.currentProfile();
       if (profile) currentUser = profile;
     } catch (err) {
-      console.warn("Jobcityjob: failed to restore Supabase session", err);
+      console.warn("Jobcityjob: failed to restore PHP API session", err);
     }
   }
 
   updateNav();
 
-  // Admin desk route: visiting /desk opens the admin page directly.
+  // Admin desk route: visiting /desk (or /#desk — needed for static-only
+  // previews like VS Code Live Server, see desk/index.html) opens the admin
+  // page directly.
   const deskPath = location.pathname.replace(/\/+$/, "").toLowerCase();
-  if (deskPath === "/desk") {
+  const deskHash = (location.hash || "").replace(/^#\/?/, "").toLowerCase();
+  if (deskPath === "/desk" || deskHash === "desk") {
+    injectAdminPage();
     showPage("admin");
   }
 
   // Mobile menu
-  document.getElementById("mobileToggle")?.addEventListener("click", () => {
-    document.getElementById("navLinks").classList.toggle("open");
+  const mobileMenuToggle = document.getElementById("mobileToggle");
+  const mobileMenu = document.getElementById("navLinks");
+  function setMenuState(open) {
+    if (!mobileMenu) return;
+    mobileMenu.classList.toggle("open", open);
+    if (mobileMenuToggle) {
+      mobileMenuToggle.setAttribute("aria-expanded", String(open));
+      mobileMenuToggle.textContent = open ? "✕" : "☰";
+    }
+  }
+  mobileMenuToggle?.addEventListener("click", () => {
+    setMenuState(!(mobileMenu && mobileMenu.classList.contains("open")));
   });
-  // Close mobile menu after navigating
-  document.getElementById("navLinks")?.querySelectorAll("a").forEach(a => {
-    a.addEventListener("click", () => {
-      document.getElementById("navLinks")?.classList.remove("open");
-    });
+  // Close mobile menu after tapping any item (links, Login, Register, etc.)
+  mobileMenu?.querySelectorAll("a, button").forEach(item => {
+    item.addEventListener("click", () => setMenuState(false));
   });
   // Close mobile menu on outside tap
   document.addEventListener("click", (e) => {
-    const nav = document.getElementById("navLinks");
-    const toggle = document.getElementById("mobileToggle");
-    if (!nav || !nav.classList.contains("open")) return;
-    if (nav.contains(e.target) || (toggle && toggle.contains(e.target))) return;
-    nav.classList.remove("open");
+    if (!mobileMenu || !mobileMenu.classList.contains("open")) return;
+    if (mobileMenu.contains(e.target) || (mobileMenuToggle && mobileMenuToggle.contains(e.target))) return;
+    setMenuState(false);
+  });
+  // Close mobile menu on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setMenuState(false);
   });
   initWelcomeMusic();
 });
@@ -70,7 +84,7 @@ function storePrefs() {
 }
 
 function saveUser() {
-  // currentUser is backed by Supabase; no local durable copy needed.
+  // currentUser comes from the PHP API session; no local durable copy needed.
   storePrefs();
 }
 
@@ -89,6 +103,7 @@ function showPage(pageId) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   const page = document.getElementById("page-" + pageId);
   if (page) page.classList.add("active");
+  document.body.classList.toggle("admin-view", pageId === "admin");
   document.getElementById("navLinks")?.classList.remove("open");
   window.scrollTo(0, 0);
 
@@ -113,9 +128,6 @@ function goToDashboard() {
 function onPageShown(page) {
   if (page === "blog") renderBlog();
   if (page === "ratings") renderRatings();
-  if (page === "admin") {
-    if (typeof renderEmailEventsAdmin === "function") renderEmailEventsAdmin();
-  }
 }
 
 function updateNav() {
@@ -242,11 +254,14 @@ function applyEmployeeCountryRules(country, profile) {
     ? getCountryFormRules(code || country)
     : (COUNTRY_FORM_RULES && COUNTRY_FORM_RULES.default) || { idTypes: [], employeeExtra: [] };
   profile = profile || {};
+  // Country-specific extra answers are stored under profile.extra; flatten
+  // them onto the profile so renderExtraFields can prefill each control.
+  profile = { ...profile, ...(profile.extra || {}) };
   country = displayName;
 
   const idType = document.getElementById("empIdType");
   if (idType) {
-    const current = idType.value || profile.idType || "";
+    const current = idType.value || profile.id_type || profile.idType || "";
     idType.innerHTML = '<option value="">Select</option>' +
       (rules.idTypes || []).map(t =>
         `<option value="${t.replace(/"/g, "&quot;")}"${current === t ? " selected" : ""}>${t}</option>`
@@ -334,7 +349,7 @@ function populateCurrencySelects() {
   });
 }
 
-// ---------- Auth (Supabase) ----------
+// ---------- Auth (PHP API) ----------
 function showAuth(tab) {
   const modal = document.getElementById("authModal");
   if (modal) modal.classList.add("show");
@@ -365,14 +380,14 @@ async function handleRegister(e) {
   const password = document.getElementById("regPassword").value;
   const country = document.getElementById("regCountry").value;
 
-  if (!supabaseReady()) {
-    toast("Supabase not configured. Set SUPABASE_URL / SUPABASE_ANON_KEY in .env (or Vercel) and rebuild.", "error");
+  if (!apiReady()) {
+    toast("API not configured. Check js/config/runtime-config.js (JOBCITYJOB_API_URL).", "error");
     return;
   }
   try {
     const authRes = await JCDB.signUp(email, password, { type, name, country });
     if (!authRes || !authRes.user) { toast("Registration failed.", "error"); return; }
-    // No session on the sign-up response means Supabase has email
+    // No session on the sign-up response means the server has email
     // confirmation enabled (or the account already existed) — the user
     // must confirm before they can log in.
     if (!authRes.session) {
@@ -402,15 +417,37 @@ async function handleLogin(e) {
   e.preventDefault();
   const email = document.getElementById("loginEmail").value.trim().toLowerCase();
   const password = document.getElementById("loginPassword").value;
-  if (!supabaseReady()) {
-    toast("Supabase not configured. Set SUPABASE_URL / SUPABASE_ANON_KEY in .env (or Vercel) and rebuild.", "error");
+  if (!apiReady()) {
+    toast("API not configured. Check js/config/runtime-config.js (JOBCITYJOB_API_URL).", "error");
     return;
   }
   try {
     await JCDB.signIn(email, password);
-    const profile = await JCDB.currentProfile();
+    let profile = await JCDB.currentProfile();
+
+    // Recover accounts that registered while "Confirm email" was enabled on
+    // the server: no session existed at sign-up time so no jc_users row was
+    // created yet. Re-create it now from the auth metadata.
     if (!profile) {
-      toast("Account profile not found.", "error");
+      const session = await JCDB.getSession();
+      const user = session && session.user;
+      if (user) {
+        const meta = user.user_metadata || {};
+        try {
+          await JCDB.createProfileRow(user, {
+            type: meta.type || "employee",
+            name: meta.name || user.email || "Member",
+            country: meta.country || ""
+          });
+          profile = await JCDB.currentProfile();
+        } catch (err) {
+          console.warn("Jobcityjob: profile auto-creation failed", err);
+        }
+      }
+    }
+
+    if (!profile) {
+      toast("Account profile not found. Please contact support.", "error");
       return;
     }
     currentUser = profile;
@@ -426,7 +463,7 @@ async function handleLogin(e) {
 
 async function logout() {
   currentUser = null;
-  if (supabaseReady()) {
+  if (apiReady()) {
     try { await JCDB.signOut(); } catch (_) {}
   }
   updateNav();
@@ -435,12 +472,44 @@ async function logout() {
 }
 
 // ---------- Employee Profile ----------
+
+/* DB columns are snake_case; the form fields are camelCase. Without this
+ * map an existing profile cannot be loaded back into the edit form. */
+const EMP_FORM_FIELD_MAP = {
+  full_name: "fullName",
+  preferred_name: "preferredName",
+  job_title: "jobTitle",
+  experience_years: "experienceYears",
+  field_of_study: "fieldOfStudy",
+  grad_year: "gradYear",
+  work_type: "workType",
+  preferred_locations: "preferredLocations",
+  salary_min: "salaryMin",
+  salary_currency: "salaryCurrency",
+  salary_period: "salaryPeriod",
+  resume_text: "resumeText",
+  id_type: "idType",
+  id_number: "idNumber",
+  ref_name: "refName",
+  ref_relation: "refRelation",
+  ref_phone: "refPhone",
+  ref_email: "refEmail",
+  ref_org: "refOrg"
+};
+
+function setCountrySelect(selectId, value) {
+  const sel = document.getElementById(selectId);
+  if (!sel || !value) return;
+  const code = getCountryCodeFromName(value) || value;
+  if ([...sel.options].some(o => o.value === code)) sel.value = code;
+}
+
 async function prefillEmployeeForm() {
   if (!currentUser || currentUser.type !== "employee") return;
   const form = document.getElementById("employeeForm");
   if (!form) return;
   let profile = null;
-  if (supabaseReady()) {
+  if (apiReady()) {
     try { profile = await JCDB.getEmployeeByUser(currentUser.id); } catch (_) {}
   }
   if (!profile) {
@@ -449,27 +518,25 @@ async function prefillEmployeeForm() {
     return;
   }
   Object.keys(profile).forEach(key => {
-    const field = form.elements[key];
-    if (field && profile[key] != null) {
-      if (field.type === "checkbox") field.checked = !!profile[key];
-      else if (field.type === "radio") { /* handled below */ }
-      else {
-        try { field.value = profile[key]; } catch (_) {}
-      }
-    }
+    const field = form.elements[EMP_FORM_FIELD_MAP[key] || key];
+    if (!field || profile[key] == null) return;
+    if (typeof field.type === "undefined") return; // radio group — handled below
+    if (field.type === "checkbox") { field.checked = !!profile[key]; return; }
+    if (field.type === "radio" || field.type === "file") return;
+    let value = profile[key];
+    if (Array.isArray(value)) value = value.join(", "); // e.g. skills jsonb
+    try { field.value = value; } catch (_) {}
   });
-  const cat = profile.jobCategory || profile.industry;
+  const cat = profile.job_category || profile.jobCategory || profile.industry;
   if (cat) {
     const radio = form.querySelector(`input[name="jobCategory"][value="${CSS.escape(cat)}"]`);
     if (radio) radio.checked = true;
   }
-  const countryVal = profile.countryCode || profile.country || document.getElementById("empCountry")?.value || "";
+  setCountrySelect("empCountry", profile.country_code || profile.countryName || profile.country);
+  setCountrySelect("empNationality", profile.nationality_code || profile.nationality);
+  setCountrySelect("empIdCountry", profile.id_country_code || profile.idCountry || profile.id_country);
   const empC = document.getElementById("empCountry");
-  if (empC && countryVal) {
-    const code = getCountryCodeFromName(countryVal) || countryVal;
-    if ([...empC.options].some(o => o.value === code)) empC.value = code;
-  }
-  applyEmployeeCountryRules(profile.countryCode || profile.country || empC?.value || "", profile);
+  applyEmployeeCountryRules(profile.country_code || profile.countryName || profile.country || empC?.value || "", profile);
 }
 
 async function saveEmployeeProfile(e) {
@@ -554,7 +621,7 @@ async function saveEmployeeProfile(e) {
   const extraFields = document.querySelectorAll('#employeeForm .country-extra-fields [name]');
   extraFields.forEach(f => { payload.extra[f.name] = f.value; });
   let existingProfile = null;
-  if (supabaseReady()) {
+  if (apiReady()) {
     try { existingProfile = await JCDB.getEmployeeByUser(currentUser.id); } catch (_) {}
   }
   if (!data.id) payload.id = (existingProfile && existingProfile.id) || "emp" + Date.now();
@@ -578,7 +645,7 @@ async function renderEmployeeDash() {
   const empWelcome = document.getElementById("empWelcome");
   if (empWelcome) empWelcome.textContent = "Welcome, " + currentUser.name;
   let profile = null;
-  if (supabaseReady()) {
+  if (apiReady()) {
     try { profile = await JCDB.getEmployeeByUser(currentUser.id); } catch (_) {}
   }
   const status = document.getElementById("profileStatus");
@@ -641,7 +708,7 @@ async function runSearch(e) {
   }
 
   let employees = [];
-  if (supabaseReady()) {
+  if (apiReady()) {
     try { employees = await JCDB.listEmployees(); } catch (_) {}
   }
 
@@ -814,8 +881,8 @@ async function submitCardPayment() {
     toast("Please log in before paying.", "error");
     return;
   }
-  if (!supabaseReady()) {
-    toast("Supabase not configured. Set SUPABASE_URL / SUPABASE_ANON_KEY in .env (or Vercel) and rebuild.", "error");
+  if (!apiReady()) {
+    toast("API not configured. Check js/config/runtime-config.js (JOBCITYJOB_API_URL).", "error");
     return;
   }
   if (!paystackReady()) {
@@ -866,51 +933,28 @@ async function submitCardPayment() {
   handler.openIframe();
 }
 
-/* After Paystack returns the reference, verify server-side via the Supabase
- * Edge Function (verify-payment) — the frontend never marks an order as paid
- * by itself. If the Edge Function is unreachable, fall back to delivering the
- * purchased credentials from the browser (test-mode path): the Paystack
- * callback only fires after a successful charge, so the data is still safe. */
+/* Paystack returned a transaction reference. Verify it ENTIRELY server-side:
+ * payments.verify asks the PHP backend to confirm the reference with Paystack
+ * (the secret key never leaves the server), check the charged amount, then —
+ * only on a verified match — mark the order confirmed and deliver the candidate
+ * contacts. The browser never marks an order paid by itself. */
 async function verifyPaystackOnServer(order, reference) {
-  let verified = false;
-  let message = "";
+  let data = null;
+  let msg = "";
   try {
-    const result = await JCDB.verifyPayment({ reference, orderId: order.id });
-    verified = !!(result && result.ok && result.verified);
-    if (result && result.message) message = result.message;
+    data = await JCDB.verifyPayment({ reference, orderId: order.id });
   } catch (err) {
-    console.warn("verify-payment edge function unavailable:", err);
-    message = "Payment received; verifying from browser session data.";
+    msg = (err && err.message) || String(err);
   }
 
-  let delivered = false;
-  if (verified) {
+  if (msg) {
+    toast(msg, "error");
+  } else if (data && data.alreadyPaid) {
+    toast("This transaction was already confirmed! Contacts are in your Message Centre.", "success");
+  } else if (data && data.verified) {
     toast("Payment verified! Contacts unlocked in your Message Centre.", "success");
-    delivered = true;
   } else {
-    try {
-      const payRow = await JCDB.getPayment(order.id);
-      const target = payRow || {
-        id: order.id,
-        employer_id: order.employerId,
-        candidate_ids: order.candidateIds,
-        method: order.method,
-        amount_ngn: order.amountNGN,
-        amount_usd: order.amountUSD,
-        currency: order.currency
-      };
-      const res = await deliverUnlockedContacts(target, { source: "fallback" });
-      if (res && res.ok) {
-        delivered = true;
-        toast(message || "Payment received! Contacts unlocked in your Message Centre.", "success");
-        try { await JCDB.confirmPayment(order.id, { ref: reference }); } catch (_) {}
-      } else {
-        toast((res && res.message) || message || "Payment received. Awaiting admin confirmation.", "");
-      }
-    } catch (err) {
-      console.warn("fallback unlock failed:", err);
-      toast(message || "Payment received. Awaiting admin confirmation.", "");
-    }
+    toast((data && data.message) || "Payment received. Contacts are delivered automatically once verified.", "warning");
   }
 
   showPage("employer-dash");
@@ -967,90 +1011,11 @@ async function savePayment(p) {
   }
 }
 
-/* Deliver full worker credentials into the employer's Message Centre + ATS
- * pipeline, and record each grant in jc_unlocks so there is an audit trail.
- * Used by the admin confirm flow and the Paystack client fallback. */
-async function deliverUnlockedContacts(payment, opts) {
-  const source = (opts && opts.source) || "admin";
-  let employees = [];
-  if (supabaseReady()) {
-    try { employees = await JCDB.listEmployees(); } catch (_) {}
-  }
+/* Full candidate credentials are delivered ONLY by the server: payments.verify
+ * (PHP) confirms the reference with Paystack, marks the order confirmed flag,
+ * and writes the contacts + pipeline + jc_unlocks in one transaction. The
+ * frontend never delivers contacts or records unlocks by itself. */
 
-  const employerId = payment.employer_id || payment.employerId;
-  if (!employerId) return { ok: false, message: "No employer on this payment." };
-  if (!supabaseReady()) return { ok: false, message: "Supabase not configured." };
-
-  const empRow = await JCDB.getUserById(employerId);
-  if (!empRow) return { ok: false, message: "Employer not found" };
-  let messages = empRow.messages || [];
-  let pipeline = empRow.pipeline || [];
-
-  const candidateIds = payment.candidate_ids || payment.candidateIds || [];
-  const grants = [];
-
-  candidateIds.forEach(cid => {
-    const emp = employees.find(e => String(e.id) === String(cid));
-    if (!emp) return;
-    const wa = emp.whatsapp || emp.phone || "";
-    const contact = {
-      candidateId: String(emp.id),
-      candidateName: emp.full_name || emp.fullName,
-      phone: emp.phone,
-      whatsapp: wa,
-      email: emp.email,
-      jobTitle: emp.job_title || emp.jobTitle,
-      city: emp.city,
-      country: emp.country_name || emp.country,
-      education: emp.education,
-      experienceYears: emp.experience_years || emp.experienceYears,
-      skills: emp.skills,
-      industry: emp.industry || emp.job_category || emp.job_title,
-      resumeText: emp.resume_text || emp.summary || "",
-      matchScore: null,
-      at: new Date().toISOString()
-    };
-
-    if (!messages.some(m => String(m.candidateId) === String(emp.id))) {
-      messages.unshift(contact);
-    }
-    if (!pipeline.some(x => String(x.candidateId) === String(emp.id))) {
-      pipeline.unshift({ ...contact, stage: "new", notes: "", history: [{ stage: "new", at: new Date().toISOString() }] });
-    }
-
-    grants.push({
-      id: "unl_" + (payment.id || "pay") + "_" + String(emp.id),
-      payment_id: payment.id || null,
-      employer_id: String(employerId),
-      candidate_id: String(emp.id),
-      method: payment.method || "bank_transfer",
-      source,
-      amount_ngn: payment.amount_ngn != null ? payment.amount_ngn : (payment.amountNGN != null ? payment.amountNGN : null),
-      amount_usd: payment.amount_usd != null ? payment.amount_usd : (payment.amountUSD != null ? payment.amountUSD : null),
-      candidate_name: emp.full_name || emp.fullName,
-      phone: emp.phone,
-      whatsapp: wa,
-      email: emp.email,
-      job_title: emp.job_title || emp.jobTitle,
-      city: emp.city,
-      country: emp.country_name || emp.country,
-      education: emp.education,
-      experience_years: emp.experience_years || emp.experienceYears,
-      skills: emp.skills || [],
-      resume_text: emp.resume_text || emp.summary || "",
-      unlocked_at: new Date().toISOString()
-    });
-  });
-
-  if (!grants.length) return { ok: false, message: "No matching candidates to deliver." };
-
-  await JCDB.updateUserProfile(employerId, { messages, pipeline });
-  for (const g of grants) {
-    try { await JCDB.recordUnlock(g); } catch (_) {}
-  }
-
-  return { ok: true, count: grants.length, messages, pipeline };
-}
 
 // ---------- Employer Dashboard ----------
 async function renderEmployerDash() {
@@ -1059,7 +1024,7 @@ async function renderEmployerDash() {
   if (emprWelcome) emprWelcome.textContent = "Welcome, " + currentUser.name;
 
   // refresh current user profile (pipeline/messages may have changed)
-  if (supabaseReady()) {
+  if (apiReady()) {
     try {
       const fresh = await JCDB.currentProfile();
       if (fresh) {
@@ -1070,7 +1035,7 @@ async function renderEmployerDash() {
   }
 
   let myPending = [];
-  if (supabaseReady()) {
+  if (apiReady()) {
     try {
       const all = await JCDB.listPayments(currentUser.id);
       myPending = all.filter(p => p.status === "pending_confirmation" && String(p.employer_id) === String(currentUser.id));
@@ -1083,7 +1048,7 @@ async function renderEmployerDash() {
     pendBox.innerHTML = myPending.map(p => `
       <div class="message-item">
         <h4>${(p.candidate_ids || []).length} candidate(s) – ${formatPrice(p.amount_ngn)}</h4>
-        <p>Status: Awaiting admin confirmation • ${p.method}</p>
+        <p>Status: Awaiting Paystack confirmation • ${p.method}</p>
         <small>${new Date(p.created_at).toLocaleString()}</small>
       </div>
     `).join("");
@@ -1269,39 +1234,21 @@ async function adminLogin() {
     toast("Please enter the admin password", "error");
     return;
   }
-  const stored = window.JOBCITYJOB_ADMIN_HASH;
-  if (!stored) {
-    toast("Admin access not configured. Set JOBCITYJOB_ADMIN_HASH (SHA-256 hex) before /desk.", "error");
+  if (!apiReady()) {
+    toast("API not configured. Check js/config/runtime-config.js (JOBCITYJOB_API_URL).", "error");
     return;
   }
-  const ok = await verifyAdminHash(pass, stored);
-  if (ok) {
-    document.getElementById("adminLoginBox").style.display = "none";
-    document.getElementById("adminPanel").style.display = "block";
-    renderAdminPanel();
-    if (typeof renderEmailEventsAdmin === "function") renderEmailEventsAdmin();
-  } else {
-    toast("Wrong password.", "error");
-  }
-}
-
-/* Compare the entered password against JOBCITYJOB_ADMIN_HASH.
- * Supports SHA-256 hex (64 hex chars, via crypto.subtle in secure contexts)
- * with a legacy base64 fallback so existing deployments keep working. */
-async function verifyAdminHash(pass, stored) {
-  if (typeof crypto !== "undefined" && crypto.subtle) {
-    try {
-      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pass));
-      const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
-      if (typeof stored === "string" && /^[0-9a-f]{64}$/i.test(stored)) {
-        return hex === stored.toLowerCase();
-      }
-    } catch (_) {}
-  }
   try {
-    return btoa(pass) === stored;
-  } catch (_) {
-    return false;
+    const res = await JCDB.adminLogin(pass);
+    if (res && res.ok) {
+      document.getElementById("adminLoginBox").style.display = "none";
+      document.getElementById("adminPanel").style.display = "block";
+      renderAdminStats();
+    } else {
+      toast(((res && res.message) || "Wrong password."), "error");
+    }
+  } catch (err) {
+    toast(((err && err.message) || "Wrong password."), "error");
   }
 }
 
@@ -1309,82 +1256,67 @@ function renderAdmin() {
   // just show login if not already in
 }
 
-async function renderAdminPanel() {
-  let pending = [];
-  let confirmed = [];
-  if (supabaseReady()) {
-    try {
-      const all = await JCDB.listPayments(null);
-      pending = all.filter(p => p.status === "pending_confirmation");
-      confirmed = all.filter(p => p.status === "confirmed").slice(-10).reverse();
-    } catch (_) {}
-  }
-  const pendList = document.getElementById("adminPendingList");
-  if (pending.length === 0) {
-    pendList.innerHTML = '<p class="empty">No pending payments</p>';
-  } else {
-    pendList.innerHTML = pending.map(p => `
-      <div class="admin-item">
-        <div class="info">
-          <h4>Employer – ${(p.candidate_ids || []).length} candidate(s)</h4>
-          <p>Amount: ${p.amount_label || ("₦" + (p.amount_ngn || getUnlockPriceNGN()).toLocaleString())} • Method: ${p.method} ${p.ref ? "• Ref: " + p.ref : ""}</p>
-          <p>${new Date(p.created_at).toLocaleString()}</p>
+/* The admin UI is intentionally not part of the public index.html, so
+ * visitors never see it in the page source. It is injected on demand
+ * only when the /desk route is visited. */
+function injectAdminPage() {
+  if (document.getElementById("page-admin")) return;
+  const html = `
+    <section id="page-admin" class="page">
+      <div class="container section">
+        <h1 class="page-title">🛠️ Admin</h1>
+        <p class="page-sub">Platform overview. Only administrators can access this area.</p>
+        <div class="admin-login" id="adminLoginBox">
+          <div class="form-group">
+            <label>Admin Password</label>
+            <input type="password" id="adminPass" placeholder="Admin password" />
+          </div>
+          <button class="btn btn-primary" onclick="adminLogin()">Enter Admin</button>
         </div>
-        <button class="btn btn-primary" onclick="confirmAndUnlockPayment('${p.id}')">✅ Confirm Payment & Unlock Contacts</button>
-      </div>
-    `).join("");
-  }
-
-  const confList = document.getElementById("adminConfirmedList");
-  if (confirmed.length === 0) {
-    confList.innerHTML = '<p class="empty">None yet</p>';
-  } else {
-    confList.innerHTML = confirmed.map(p => `
-      <div class="admin-item">
-        <div class="info">
-          <h4>Payment ${p.id} – ${(p.candidate_ids || []).length} contacts unlocked</h4>
-          <p>${new Date(p.confirmed_at || p.created_at).toLocaleString()}</p>
+        <div id="adminPanel" style="display:none">
+          <div class="admin-stats">
+            <div class="dash-card stat">
+              <strong id="statUsers">…</strong>
+              <span id="statUsersSub">Total users registered</span>
+            </div>
+            <div class="dash-card stat">
+              <strong id="statContacts">…</strong>
+              <span id="statContactsSub">Contacts purchased (unlock purchases)</span>
+            </div>
+            <div class="dash-card stat">
+              <strong id="statAmount">…</strong>
+              <span id="statAmountSub">Total amount paid (confirmed)</span>
+            </div>
+          </div>
         </div>
       </div>
-    `).join("");
-  }
+    </section>
+  `;
+  document.querySelector("main")?.insertAdjacentHTML("beforeend", html);
 }
 
-async function confirmAndUnlockPayment(payId) {
-  let payment = null;
-  if (supabaseReady()) {
+async function renderAdminStats() {
+  let users = 0;
+  let unlocks = 0;
+  let amount = 0;
+  let paidCount = 0;
+  if (apiReady()) {
+    try { users = await JCDB.countUsers(); } catch (_) {}
+    try { unlocks = await JCDB.countUnlocks(); } catch (_) {}
     try {
-      payment = await JCDB.getPayment(payId);
+      const r = await JCDB.totalConfirmedPaid();
+      amount = r.total;
+      paidCount = r.count;
     } catch (_) {}
   }
-  if (!payment) {
-    toast("Payment not found", "error");
-    return;
-  }
-  try {
-    await JCDB.confirmPayment(payId);
-
-    const res = await deliverUnlockedContacts(payment, { source: "admin" });
-    if (res && res.ok) {
-      toast("Payment confirmed! Contacts delivered to employer Message Centre.", "success");
-    } else {
-      toast((res && res.message) || "Payment confirmed, but contacts could not be delivered.", "error");
-    }
-
-    // update current employer session in memory
-    if (currentUser && String(currentUser.id) === String(payment.employer_id)) {
-      currentUser.messages = (res && res.messages) || currentUser.messages;
-      currentUser.pipeline = (res && res.pipeline) || currentUser.pipeline;
-      saveUser();
-    }
-
-    if (document.getElementById("page-admin")?.classList.contains("active")) {
-      renderAdminPanel();
-      if (typeof renderEmailEventsAdmin === "function") renderEmailEventsAdmin();
-    }
-  } catch (err) {
-    toast("Confirm failed: " + ((err && err.message) || err), "error");
-  }
+  document.getElementById("statUsers").textContent = users.toLocaleString();
+  document.getElementById("statUsersSub").textContent = users === 1 ? "User registered" : "Total users registered";
+  document.getElementById("statContacts").textContent = unlocks.toLocaleString();
+  document.getElementById("statContactsSub").textContent = unlocks === 1 ? "Contact purchase (unlock purchase)" : "Contacts purchased (unlock purchases)";
+  document.getElementById("statAmount").textContent = "₦" + amount.toLocaleString();
+  document.getElementById("statAmountSub").textContent = paidCount > 0
+    ? "Paid across " + paidCount + (paidCount === 1 ? " confirmed payment" : " confirmed payments")
+    : "Total amount paid (confirmed)";
 }
 
 // ---------- Welcome Music ----------
@@ -1561,7 +1493,7 @@ async function recordInviteOnPipeline(candidateId, channel, dateStr, timeStr, ve
         item.history.push({ stage: "interview", at: new Date().toISOString() });
       }
       currentUser.pipeline = current;
-      if (supabaseReady()) {
+      if (apiReady()) {
         await JCDB.updateUserProfile(currentUser.id, { pipeline: current });
       }
     }
@@ -1609,7 +1541,7 @@ async function sendInterviewInvite(e) {
       + "?subject=" + encodeURIComponent(subject)
       + "&body=" + encodeURIComponent(msg);
     window.location.href = url;
-    if (typeof JCDB !== "undefined" && supabaseReady()) {
+    if (typeof JCDB !== "undefined" && apiReady()) {
       JCDB.recordEmailEvent({
         status: "queued_client",
         email: email,
@@ -1652,7 +1584,7 @@ async function sendInterviewInvite(e) {
 
 // ---------- Community blog (positive experiences) ----------
 async function getBlogPosts() {
-  if (supabaseReady()) {
+  if (apiReady()) {
     try { return await JCDB.listBlog(); } catch (_) {}
   }
   return [];
@@ -1717,7 +1649,7 @@ async function renderBlog() {
 
 // ---------- Ratings & recommendations ----------
 async function getRatings() {
-  if (supabaseReady()) {
+  if (apiReady()) {
     try { return await JCDB.listRatings(); } catch (_) {}
   }
   return [];
@@ -1790,74 +1722,5 @@ function toast(msg, type = "") {
   el.textContent = msg;
   el.className = "toast show " + type;
   setTimeout(() => el.classList.remove("show"), 4200);
-}
-
-// ---------- Email bounce / delivery events ----------
-async function renderEmailEventsAdmin() {
-  const box = document.getElementById("adminEmailEvents");
-  if (!box) return;
-  let events = [];
-  if (supabaseReady()) {
-    try { events = await JCDB.listEmailEvents(); } catch (_) {}
-  }
-  if (!events.length) {
-    box.innerHTML = "<p class='note'>No email events yet. Connect provider webhooks or use Simulate bounce.</p>";
-    return;
-  }
-  box.innerHTML = events.slice(0, 40).map(e => {
-    const badge =
-      e.status === "bounced" || e.status === "complained" ? "badge-danger" :
-      e.status === "delivered" ? "badge-success" : "badge-muted";
-    return `<div class="admin-item">
-      <div>
-        <strong class="${badge}">${e.status}</strong> · ${e.email || "—"}
-        <div class="meta">${e.reason || ""} ${e.bounce_type ? "(" + e.bounce_type + ")" : ""}</div>
-        <div class="meta">${e.provider || ""} · ${new Date(e.created_at).toLocaleString()}</div>
-      </div>
-    </div>`;
-  }).join("");
-}
-
-async function simulateEmailBounce() {
-  const email = prompt("Email address to mark as bounced:");
-  if (!email) return;
-  await JCDB.recordEmailEvent({
-    id: "ee_" + Date.now(),
-    status: "bounced",
-    email: email.trim(),
-    bounce_type: "Permanent",
-    reason: "Simulated hard bounce (mailbox does not exist)",
-    provider: "simulator"
-  });
-  toast("Bounce recorded. Future invites to this address will be blocked.", "success");
-  renderEmailEventsAdmin();
-}
-
-async function simulateEmailComplaint() {
-  const email = prompt("Email address to mark as spam complaint:");
-  if (!email) return;
-  await JCDB.recordEmailEvent({
-    id: "ee_" + Date.now(),
-    status: "complained",
-    email: email.trim(),
-    reason: "Simulated spam complaint",
-    provider: "simulator"
-  });
-  toast("Complaint recorded. Address suppressed.", "success");
-  renderEmailEventsAdmin();
-}
-
-async function simulateEmailDelivered() {
-  const email = prompt("Email address to mark as delivered:");
-  if (!email) return;
-  await JCDB.recordEmailEvent({
-    id: "ee_" + Date.now(),
-    status: "delivered",
-    email: email.trim(),
-    reason: "Simulated delivery",
-    provider: "simulator"
-  });
-  toast("Delivery event recorded.", "success");
-  renderEmailEventsAdmin();
 }
 

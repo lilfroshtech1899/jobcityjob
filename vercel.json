@@ -2,7 +2,7 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
-  "buildCommand": "node scripts/vercel-build.js",
+  "buildCommand": "node scripts/build.js",
   "outputDirectory": "public",
   "headers": [
     {
@@ -26,7 +26,7 @@
       ]
     },
     {
-      "source": "/js/env-config.js",
+      "source": "/js/config/runtime-config.js",
       "headers": [
         { "key": "Cache-Control", "value": "no-cache, must-revalidate" }
       ]

@@ -36,7 +36,7 @@ function load(file) {
   }
 }
 
-// Project-root .env (where SUPABASE_URL, PAYSTACK_SECRET_KEY, etc. live).
+// Project-root .env (where PAYSTACK_SECRET_KEY, MySQL/DB_* and other secrets live).
 load(path.join(__dirname, "..", ".env"));
 // Optional server-local overrides.
 load(path.join(__dirname, ".env"));

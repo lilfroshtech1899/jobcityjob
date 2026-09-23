@@ -17,7 +17,7 @@
  *      processed once) and stores reference / amount / status / payment date.
  *   8. Delivers the purchased worker credentials into the employer's
  *      Message Centre + ATS pipeline and records each grant in jc_unlocks
- *      (run supabase-payments-upgrade.sql so that table exists).
+ *      (run supabase/migrations/0002_payments_upgrade.sql so that table exists).
  *
  * Secrets (Edge Function environment — NEVER exposed to the browser):
  *   PAYSTACK_SECRET_KEY
